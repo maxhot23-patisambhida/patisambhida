@@ -1,0 +1,33 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "patisambhida-publish",
+  "main": "worker.js",
+  "compatibility_date": "2025-06-01",
+
+  // Non-secret config. Secrets (GITHUB_TOKEN / GITHUB_OWNER / GITHUB_REPO)
+  // are set with `wrangler secret put` — never put them here.
+  "vars": {
+    "TARGET_PATH": "web/overrides/editorial-overrides.json",
+    "GITHUB_BRANCH": "main",
+    // CORS: ใส่ origin ของหน้าเว็บ Pages เช่น "https://patisambhida.pages.dev"
+    // หรือหลายตัวคั่น comma. ใช้ "*" ได้ระหว่างทดสอบ (ไม่แนะนำตอน production).
+    "ALLOWED_ORIGIN": "*"
+  },
+
+  "observability": {
+    "enabled": true
+  }
+
+  // ── การ route /api/publish ─────────────────────────────────────────────
+  // ทางเลือก A (แนะนำ): ผูก Worker Route บนโดเมนเดียวกับหน้าเว็บ Pages
+  //   เพื่อให้ fetch("/api/publish") เป็น same-origin (ไม่ต้องพึ่ง CORS)
+  //   ต้องมี custom domain อยู่บน Cloudflare:
+  //
+  // "routes": [
+  //   { "pattern": "yourdomain.com/api/publish", "zone_name": "yourdomain.com" }
+  // ]
+  //
+  // ทางเลือก B: ใช้ URL *.workers.dev ตรง ๆ (cross-origin → ต้องตั้ง ALLOWED_ORIGIN)
+  //   แล้วแก้ค่า PUBLISH_ENDPOINT ในหน้าเว็บให้ชี้มาที่
+  //   https://patisambhida-publish.<subdomain>.workers.dev/api/publish
+}

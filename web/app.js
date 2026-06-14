@@ -32,11 +32,15 @@ const LS = {
   editorial: "psm.editorial",
   edPopup: "psm.edPopup",
   edLastExport: "psm.edLastExport",
+  edLastPublish: "psm.edLastPublish",
 };
 
 /* รหัสผ่านโหมดแอดมิน — เว็บ static เปิดเผยซอร์สได้ จึงเป็น "ประตูเบา" กันผู้อ่านทั่วไป
    ไม่ใช่ระบบความปลอดภัยจริง เจ้าของเว็บแก้ค่านี้ได้ตามต้องการ */
 const ADMIN_PASSCODE = "patisambhida-2569";
+/* ปลายทาง publish (Cloudflare Worker) — แก้ค่านี้ค่าเดียวเพื่อย้าย endpoint
+   ต้องลงท้ายด้วย /api/publish (worker route ตามนั้น) */
+const PUBLISH_ENDPOINT = "https://patisambhida-publish.maxhot23.workers.dev/api/publish";
 
 const state = {
   catalog: null,
@@ -203,6 +207,7 @@ const els = {
   adminStatus: $("#adminStatus"),
   adminEntriesBtn: $("#adminEntriesBtn"),
   adminExportBtn: $("#adminExportBtn"),
+  adminPublishBtn: $("#adminPublishBtn"),
   adminImportInput: $("#adminImportInput"),
   adminExitBtn: $("#adminExitBtn"),
 
@@ -507,6 +512,66 @@ function editorialExportJson() {
     grouped[slug].entries.sort((a, b) => a.page - b.page || a.start - b.start);
   }
   return JSON.stringify(grouped, null, 2);
+}
+
+/* เผยแพร่ editorial ไป /api/publish (Cloudflare Worker) — แยกจาก export เพื่อให้ backup ยังใช้ได้ */
+async function publishEditorial() {
+  const btn = els.adminPublishBtn;
+  if (btn.disabled) return;
+
+  const icon = btn.querySelector(".publish-icon");
+  const spinner = btn.querySelector(".publish-spinner");
+  const label = btn.querySelector(".publish-label");
+
+  btn.disabled = true;
+  btn.classList.remove("publish-success", "publish-error");
+  icon.hidden = true;
+  spinner.hidden = false;
+  label.textContent = "กำลังเผยแพร่…";
+
+  const payload = editorialExportJson();
+  try {
+    const res = await fetch(PUBLISH_ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: payload,
+    });
+    const bodyText = await res.text();
+    let data = null;
+    try { data = JSON.parse(bodyText); } catch { /* response ไม่ใช่ JSON */ }
+
+    if (!res.ok || !(data && data.success)) {
+      // diagnostics: HTTP status + response body + full payload
+      console.error("[publish] ล้มเหลว", { status: res.status, response: bodyText, payload });
+      const detail = (data && data.error) || bodyText.slice(0, 200) || "ไม่มีรายละเอียด";
+      throw new Error(`HTTP ${res.status} — ${detail}`);
+    }
+
+    // สำเร็จ — ใช้เวลา commit จาก worker ถ้ามี, ไม่งั้นใช้เวลาเครื่อง
+    const committedAt = data.updatedAt ? new Date(data.updatedAt).getTime() : Date.now();
+    setLastPublish(committedAt);
+    updateAdminStatus();
+    btn.classList.add("publish-success");
+    label.textContent = "เผยแพร่สำเร็จ ✓";
+    const stamp = thaiDateTime.format(new Date(committedAt));
+    const commitShort = data.commitSha ? ` · commit ${String(data.commitSha).slice(0, 7)}` : "";
+    toast("เผยแพร่สำเร็จ", `${stamp}${commitShort}`);
+    setTimeout(() => resetPublishBtn(btn), 3000);
+  } catch (err) {
+    console.error("[publish] error", err, { payload });
+    btn.classList.add("publish-error");
+    label.textContent = "เผยแพร่ล้มเหลว";
+    toast("เผยแพร่ล้มเหลว", err.message);
+    setTimeout(() => resetPublishBtn(btn), 4000);
+  }
+}
+
+function resetPublishBtn(btn) {
+  btn.disabled = false;
+  btn.classList.remove("publish-success", "publish-error");
+  btn.querySelector(".publish-icon").hidden = false;
+  btn.querySelector(".publish-spinner").hidden = true;
+  btn.querySelector(".publish-label").textContent = "เผยแพร่";
 }
 
 /* ลบหลาย entry ในครั้งเดียว (caller จัดการ history เอง) */
@@ -1574,14 +1639,27 @@ function setLastExport(ts) {
   localStorage.setItem(LS.edLastExport, String(ts));
 }
 
-/* สรุปสถานะแอดมิน (เฉพาะโหมดแอดมิน) — จำนวน editorial + เวลาส่งออกล่าสุด */
+/* สรุปสถานะแอดมิน (เฉพาะโหมดแอดมิน) — จำนวน editorial + เวลาส่งออก/เผยแพร่ล่าสุด */
+function getLastPublish() {
+  const ts = Number(localStorage.getItem(LS.edLastPublish));
+  return Number.isFinite(ts) && ts > 0 ? ts : null;
+}
+function setLastPublish(ts) {
+  localStorage.setItem(LS.edLastPublish, String(ts));
+}
 function updateAdminStatus() {
   if (!state.admin) return;
   const count = allEffectiveEditorial().length;
-  const last = getLastExport();
+  const lastExport = getLastExport();
+  const lastPublish = getLastPublish();
+  const exportPart = lastExport
+    ? `ส่งออกล่าสุด <b>${escapeHtml(thaiDateTime.format(new Date(lastExport)))}</b>`
+    : `ยังไม่เคยส่งออก`;
+  const publishPart = lastPublish
+    ? ` · เผยแพร่ล่าสุด <b>${escapeHtml(thaiDateTime.format(new Date(lastPublish)))}</b>`
+    : "";
   els.adminStatus.innerHTML =
-    `แก้ไข Editorial: <b>${arabicNum.format(count)}</b> · ` +
-    (last ? `ส่งออกล่าสุด <b>${escapeHtml(thaiDateTime.format(new Date(last)))}</b>` : `ยังไม่เคยส่งออก`);
+    `แก้ไข Editorial: <b>${arabicNum.format(count)}</b> · ${exportPart}${publishPart}`;
 }
 
 function openAdminLogin() {
@@ -2438,6 +2516,7 @@ els.edImageCaption.addEventListener("keydown", (event) => {
 // แถบเครื่องมือแอดมิน
 els.adminEntriesBtn.addEventListener("click", openEditorialPanel);
 els.adminExitBtn.addEventListener("click", exitAdminMode);
+els.adminPublishBtn.addEventListener("click", publishEditorial);
 els.adminExportBtn.addEventListener("click", async () => {
   const json = editorialExportJson();
   downloadTextFile(`patisambhida-editorial-${new Date().toISOString().slice(0, 10)}.json`, json);
