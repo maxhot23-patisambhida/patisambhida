@@ -18,7 +18,14 @@ const DEFAULT_BRANCH = "main";
 const MAX_BODY_BYTES = 5 * 1024 * 1024; // 5MB
 const ROUTE = "/api/publish";
 
-const EDITORIAL_TYPES = new Set(["bold", "italic", "color", "replace", "image-block", "heading"]);
+// ต้องตรงกับฝั่ง client (web/app.js: LAYOUT_TYPES + EDITORIAL_TYPES) — source of truth เดียวกัน
+const LAYOUT_TYPES = ["align-center", "align-left", "align-right", "indent", "spacing-top", "spacing-bottom"];
+export const EDITORIAL_TYPES = new Set([
+  "bold", "italic", "color", "replace",
+  "heading-lg", "heading-md", "heading-sm",
+  "image-block",
+  ...LAYOUT_TYPES,
+]);
 
 export default {
   async fetch(request, env, ctx) {
@@ -149,7 +156,7 @@ async function handlePublish(request, env, reqForCors) {
 
 /* ───────────── normalize / validate ───────────── */
 
-function normalizePayload(body) {
+export function normalizePayload(body) {
   const books = {};
   let count = 0;
 
