@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ปฏิสัมภิทามรรค · ห้องสมุดธรรมดิจิทัล</title>
+    <meta name="description" content="อ่าน ค้นคว้า และอ้างอิงคัมภีร์ปฏิสัมภิทามรรคทั้ง ๘ เล่ม" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700&family=Noto+Serif+Thai:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css?v=editorial-v2" />
+  </head>
+  <body>
+    <header class="appbar" id="appbar">
+      <a class="brand" href="#/">
+        <span class="brand-mark" aria-hidden="true">ป</span>
+        <span class="brand-text">
+          <strong>ปฏิสัมภิทามรรค</strong>
+          <small>ห้องสมุดธรรมดิจิทัล</small>
+        </span>
+      </a>
+
+      <nav class="appnav" aria-label="เมนูหลัก">
+        <a href="#/" data-nav="library">ห้องสมุด</a>
+        <a href="#/bookmarks" data-nav="bookmarks">ที่คั่นหน้า</a>
+        <a href="#/notes" data-nav="notes">โน้ต</a>
+        <a href="#/map" data-nav="map">ดัชนีธรรม</a>
+      </nav>
+
+      <div class="appbar-actions">
+        <button class="search-trigger" id="searchTrigger" type="button" aria-label="ค้นหาทั้งคัมภีร์">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>
+          <span>ค้นหาทั้งคัมภีร์</span>
+          <kbd>Ctrl K</kbd>
+        </button>
+        <button class="icon-btn" id="themeToggle" type="button" aria-label="สลับโหมดกลางวัน/กลางคืน">
+          <svg class="ic-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5 5l1.8 1.8M17.2 17.2 19 19M19 5l-1.8 1.8M6.8 17.2 5 19"/></svg>
+          <svg class="ic-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4 8.5 8.5 0 1 0 20 14.5Z"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <main id="main">
+      <!-- ห้องสมุด -->
+      <section class="view view-library" id="viewLibrary" hidden>
+        <header class="library-hero" id="libraryHero">
+          <div class="hero-bg" aria-hidden="true"></div>
+          <span class="hero-mark" aria-hidden="true">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.4">
+              <circle cx="24" cy="24" r="19" />
+              <circle cx="24" cy="24" r="5.5" />
+              <path d="M24 5v9.5M24 33.5V43M5 24h9.5M33.5 24H43M10.6 10.6l6.7 6.7M30.7 30.7l6.7 6.7M37.4 10.6l-6.7 6.7M17.3 30.7l-6.7 6.7" />
+            </svg>
+          </span>
+          <h1 class="hero-title">ปฏิสัมภิทามรรค</h1>
+          <p class="hero-sub">ห้องสมุดธรรมดิจิทัล</p>
+          <p class="hero-quote">“ปัญญาเป็นแสงสว่างในโลก”</p>
+          <div class="hero-actions">
+            <a class="hero-btn primary" id="heroStart" href="#/">เริ่มอ่าน</a>
+            <a class="hero-btn" id="heroContinue" href="#/" hidden>อ่านต่อ</a>
+          </div>
+          <dl class="hero-stats">
+            <div class="hs-item"><dd id="heroStatBooks">—</dd><dt>จำนวนเล่ม</dt></div>
+            <div class="hs-item"><dd id="heroStatPages">—</dd><dt>จำนวนหน้า</dt></div>
+            <div class="hs-item"><dd id="heroStatChars">—</dd><dt>จำนวนตัวอักษร</dt></div>
+          </dl>
+        </header>
+        <header class="view-head">
+          <div>
+            <h2>ห้องสมุด</h2>
+            <p class="view-sub" id="libraryStats"></p>
+          </div>
+        </header>
+        <div id="continueStrip"></div>
+        <div class="shelf" id="shelf"></div>
+      </section>
+
+      <!-- อ่าน -->
+      <section class="view view-reader" id="viewReader" hidden>
+        <div class="reader-bar">
+          <a class="ghost-btn back-btn" href="#/" aria-label="กลับห้องสมุด">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+            <span>ห้องสมุด</span>
+          </a>
+          <div class="reader-meta">
+            <p id="readerKicker"></p>
+            <h2 id="readerTitle"></h2>
+          </div>
+          <div class="reader-tools" aria-label="เครื่องมืออ่าน">
+            <button class="icon-btn" id="tocBtn" type="button" title="สารบัญเล่มนี้" aria-label="สารบัญเล่มนี้">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg>
+            </button>
+            <button class="icon-btn" id="fontDown" type="button" title="ลดขนาดตัวอักษร" aria-label="ลดขนาดตัวอักษร"><span class="tt">ก<small>−</small></span></button>
+            <button class="icon-btn" id="fontUp" type="button" title="เพิ่มขนาดตัวอักษร" aria-label="เพิ่มขนาดตัวอักษร"><span class="tt">ก<small>+</small></span></button>
+            <button class="icon-btn" id="bookmarkBtn" type="button" title="คั่นหน้านี้" aria-label="คั่นหน้านี้">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3.5h10a1 1 0 0 1 1 1V21l-6-4-6 4V4.5a1 1 0 0 1 1-1Z"/></svg>
+            </button>
+            <button class="icon-btn" id="notesBtn" type="button" title="โน้ตและไฮไลท์ของฉัน" aria-label="โน้ตและไฮไลท์ของฉัน">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5V5a2 2 0 0 1 2-2h9l5 5v11.5a1.5 1.5 0 0 1-1.5 1.5H6A2 2 0 0 1 4 19.5Z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg>
+            </button>
+            <button class="icon-btn" id="citeBtn" type="button" title="คัดลอกการอ้างอิง" aria-label="คัดลอกการอ้างอิง">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 8.5c-2.5.7-4 2.6-4 5.5v1.5h4v-4h-2c.2-1.4 1-2.3 2-2.7Zm9 0c-2.5.7-4 2.6-4 5.5v1.5h4v-4h-2c.2-1.4 1-2.3 2-2.7Z"/></svg>
+            </button>
+            <button class="icon-btn" id="focusBtn" type="button" title="โหมดอ่านไร้สิ่งรบกวน" aria-label="โหมดอ่านไร้สิ่งรบกวน">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>
+            </button>
+            <a class="icon-btn" id="pdfLink" href="#" target="_blank" rel="noreferrer" title="เปิด PDF ต้นฉบับ" aria-label="เปิด PDF ต้นฉบับ">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M10 5H6a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2v-4"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="reader-body">
+          <article class="page-paper">
+            <header class="page-head">
+              <span id="pageHeading"></span>
+              <span id="pagePct"></span>
+            </header>
+            <div class="page-text" id="pageText"></div>
+            <footer class="page-foot">
+              <a id="pageSource" href="#" target="_blank" rel="noreferrer"></a>
+            </footer>
+          </article>
+        </div>
+
+        <div class="pager" id="pager">
+          <button class="pager-btn" id="prevPage" type="button" aria-label="หน้าก่อนหน้า">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+          </button>
+          <div class="pager-mid">
+            <label class="pager-num">
+              <span>หน้า</span>
+              <input id="pageInput" type="number" min="1" value="1" inputmode="numeric" />
+              <span id="pageTotal">/ ๑</span>
+            </label>
+            <input class="pager-slider" id="pageSlider" type="range" min="1" max="1" value="1" aria-label="เลื่อนไปยังหน้า" />
+          </div>
+          <button class="pager-btn" id="nextPage" type="button" aria-label="หน้าถัดไป">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+
+        <button class="focus-exit" id="focusExit" type="button">ออกจากโหมดอ่าน · Esc</button>
+      </section>
+
+      <!-- ที่คั่นหน้า -->
+      <section class="view view-bookmarks" id="viewBookmarks" hidden>
+        <header class="view-head">
+          <div>
+            <h2>ที่คั่นหน้า</h2>
+            <p class="view-sub" id="bookmarkStats"></p>
+          </div>
+        </header>
+        <div id="bookmarkList"></div>
+      </section>
+
+      <!-- โน้ตและไฮไลท์ -->
+      <section class="view view-notes" id="viewNotes" hidden>
+        <header class="view-head">
+          <div>
+            <h2>โน้ตและไฮไลท์</h2>
+            <p class="view-sub" id="notesStats"></p>
+          </div>
+          <div class="note-actions">
+            <button class="ghost-btn danger-btn" id="deleteAllHighlightsBtn" type="button" hidden>ลบไฮไลท์ทั้งหมด</button>
+            <button class="ghost-btn" id="exportNotesBtn" type="button">สำรองโน้ต</button>
+            <label class="ghost-btn import-notes">
+              กู้คืนโน้ต
+              <input id="importNotesInput" type="file" accept="application/json,.json" hidden />
+            </label>
+          </div>
+        </header>
+        <div id="notesList"></div>
+      </section>
+
+      <!-- ดัชนีธรรม -->
+      <section class="view view-map" id="viewMap" hidden>
+        <header class="view-head">
+          <div>
+            <h2>ดัชนีธรรม</h2>
+            <p class="view-sub">คำหลักในปฏิสัมภิทามรรค พร้อมจำนวนหน้าที่พบแยกตามเล่ม — กดคำใดก็ได้เพื่อค้นทันที</p>
+          </div>
+        </header>
+        <div id="mapBody"></div>
+      </section>
+
+      <!-- รายงานคุณภาพข้อมูล (เครื่องมือตรวจงาน) -->
+      <section class="view view-quality" id="viewQuality" hidden>
+        <header class="view-head">
+          <div>
+            <h2>รายงานคุณภาพข้อมูล</h2>
+            <p class="view-sub">เครื่องมือตรวจงาน extraction — คุณภาพสารบัญ หัวข้อยาวผิดปกติ หน้าว่าง และปัญหา normalize ที่เหลือ</p>
+          </div>
+        </header>
+        <div id="qualityBody"></div>
+      </section>
+
+      <!-- อ่านตามหัวข้อ -->
+      <section class="view view-section" id="viewSection" hidden>
+        <div class="reader-bar">
+          <a class="ghost-btn back-btn" id="sectionBack" href="#/" aria-label="กลับ">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+            <span>กลับเล่ม</span>
+          </a>
+          <div class="reader-meta">
+            <p id="sectionKicker"></p>
+            <h2 id="sectionBookTitle"></h2>
+          </div>
+          <div class="reader-tools" aria-label="เครื่องมือหัวข้อ">
+            <button class="icon-btn" id="sectionFontDown" type="button" title="ลดขนาดตัวอักษร" aria-label="ลดขนาดตัวอักษร"><span class="tt">ก<small>−</small></span></button>
+            <button class="icon-btn" id="sectionFontUp" type="button" title="เพิ่มขนาดตัวอักษร" aria-label="เพิ่มขนาดตัวอักษร"><span class="tt">ก<small>+</small></span></button>
+            <button class="icon-btn" id="sectionCiteBtn" type="button" title="คัดลอกการอ้างอิงหัวข้อ" aria-label="คัดลอกการอ้างอิงหัวข้อ">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 8.5c-2.5.7-4 2.6-4 5.5v1.5h4v-4h-2c.2-1.4 1-2.3 2-2.7Zm9 0c-2.5.7-4 2.6-4 5.5v1.5h4v-4h-2c.2-1.4 1-2.3 2-2.7Z"/></svg>
+            </button>
+            <a class="icon-btn" id="sectionPdfLink" href="#" target="_blank" rel="noreferrer" title="เปิด PDF ต้นฉบับ" aria-label="เปิด PDF ต้นฉบับ">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M10 5H6a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2v-4"/></svg>
+            </a>
+          </div>
+        </div>
+        <article class="page-paper section-paper">
+          <header class="section-head">
+            <span class="sec-type" id="sectionType"></span>
+            <h3 id="sectionTitle"></h3>
+            <p class="sec-range" id="sectionRange"></p>
+          </header>
+          <div id="sectionBody"></div>
+        </article>
+        <div class="section-nav">
+          <button class="ghost-btn" id="sectionPrev" type="button">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+            <span>หัวข้อก่อนหน้า</span>
+          </button>
+          <button class="ghost-btn" id="sectionNext" type="button">
+            <span>หัวข้อถัดไป</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <!-- สารบัญ (drawer) -->
+    <div class="toc-backdrop" id="tocBackdrop" hidden>
+      <aside class="toc-drawer" role="dialog" aria-modal="true" aria-label="สารบัญ">
+        <header class="toc-head">
+          <div>
+            <p>สารบัญ</p>
+            <h3 id="tocBookTitle"></h3>
+          </div>
+          <button class="icon-btn" id="tocClose" type="button" aria-label="ปิดสารบัญ">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+          </button>
+        </header>
+        <div class="toc-controls">
+          <input id="tocFilter" type="search" placeholder="กรองหัวข้อ…" autocomplete="off" />
+          <div class="toc-modes">
+            <button class="pf-chip on" id="tocModeMajor" type="button">หัวข้อหลัก</button>
+            <button class="pf-chip" id="tocModeAll" type="button">ทุกหน้า</button>
+            <button class="pf-chip" id="tocModeReview" type="button">ตรวจสารบัญ</button>
+          </div>
+        </div>
+        <div class="toc-list" id="tocList"></div>
+      </aside>
+    </div>
+
+    <!-- Command palette -->
+    <div class="palette-backdrop" id="paletteBackdrop" hidden>
+      <div class="palette" role="dialog" aria-modal="true" aria-label="ค้นหาทั้งคัมภีร์">
+        <div class="palette-input">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>
+          <input id="paletteInput" type="text" placeholder="ค้นหา เช่น ญาณ, อริยมรรค, ปหาตัพพะ…" autocomplete="off" spellcheck="false" />
+          <button class="palette-close" id="paletteClose" type="button" aria-label="ปิด">Esc</button>
+        </div>
+        <div class="palette-filters" id="paletteFilters"></div>
+        <div class="palette-results" id="paletteResults"></div>
+        <div class="palette-foot">
+          <span><kbd>↑</kbd><kbd>↓</kbd> เลื่อน</span>
+          <span><kbd>Enter</kbd> เปิดหน้า</span>
+          <span><kbd>Esc</kbd> ปิด</span>
+        </div>
+      </div>
+    </div>
+
+    <nav class="appnav-mobile" aria-label="เมนูหลัก (มือถือ)">
+      <a href="#/" data-nav="library">ห้องสมุด</a>
+      <a href="#/bookmarks" data-nav="bookmarks">ที่คั่นหน้า</a>
+      <a href="#/notes" data-nav="notes">โน้ต</a>
+      <a href="#/map" data-nav="map">ดัชนีธรรม</a>
+    </nav>
+
+    <div class="selection-popover" id="selectionPopover" hidden>
+      <div class="sel-header" id="selHeader">
+        <span class="sel-title" id="selTitle">เครื่องมือ</span>
+        <button type="button" class="sel-min" id="selMinBtn" title="ย่อ" aria-label="ย่อ">–</button>
+        <button type="button" class="sel-close" id="cancelSelectionBtn" title="ปิด" aria-label="ปิด">×</button>
+      </div>
+      <div class="sel-body">
+        <div class="selection-actions">
+          <button type="button" id="highlightSelectionBtn">🖍 ไฮไลท์</button>
+          <button type="button" id="removeHighlightBtn" class="sel-remove-hl" hidden>🗑 เอาไฮไลท์ออก</button>
+          <button type="button" id="noteSelectionBtn">เพิ่มโน้ต</button>
+        </div>
+        <div class="selection-admin" id="adminSelectionActions" hidden>
+          <span class="sel-sep" aria-hidden="true"></span>
+          <div class="sel-row">
+            <button type="button" id="edBoldBtn" title="ทำตัวหนา"><b>ตัวหนา</b></button>
+            <button type="button" id="edItalicBtn" title="ทำตัวเอียง"><i>ตัวเอียง</i></button>
+            <button type="button" id="edReplaceBtn" title="แก้ไขข้อความ">แก้ข้อความ</button>
+            <button type="button" id="edImageBtn" title="แทรกรูปภาพประกอบ ณ ตำแหน่งนี้">🖼 แทรกรูปภาพ</button>
+          </div>
+          <div class="sel-row ed-presets">
+            <button type="button" class="ed-preset" data-color="#0d6efd">📘 คำสำคัญ</button>
+            <button type="button" class="ed-preset" data-color="#8e44ad">🟣 คำบาลี</button>
+            <button type="button" class="ed-preset" data-color="#1e8449">🟢 คำอธิบาย</button>
+            <button type="button" class="ed-preset" data-color="#c0392b">🔴 ตรวจสอบ</button>
+          </div>
+          <div class="sel-row ed-headings">
+            <button type="button" class="ed-heading-btn" data-heading="heading-lg">🔠 หัวข้อใหญ่</button>
+            <button type="button" class="ed-heading-btn" data-heading="heading-md">🔡 หัวข้อกลาง</button>
+            <button type="button" class="ed-heading-btn" data-heading="heading-sm">▫️ หัวข้อเล็ก</button>
+          </div>
+          <div class="sel-row ed-layouts">
+            <button type="button" class="ed-layout-btn" data-layout="align-center" title="จัดกึ่งกลาง">📍 จัดกึ่งกลาง</button>
+            <button type="button" class="ed-layout-btn" data-layout="align-left" title="ชิดซ้าย">⬅ ชิดซ้าย</button>
+            <button type="button" class="ed-layout-btn" data-layout="align-right" title="ชิดขวา">➡ ชิดขวา</button>
+            <button type="button" class="ed-layout-btn" data-layout="indent" title="ย่อหน้า">⇥ ย่อหน้า</button>
+            <button type="button" class="ed-layout-btn" data-layout="spacing-top" title="เพิ่มระยะด้านบน">⬆ ระยะบน</button>
+            <button type="button" class="ed-layout-btn" data-layout="spacing-bottom" title="เพิ่มระยะด้านล่าง">⬇ ระยะล่าง</button>
+          </div>
+          <div class="sel-row" id="edRemoveRow" hidden>
+            <button type="button" id="edRemoveBtn" class="ed-remove">🗑 ลบรูปแบบ</button>
+          </div>
+        </div>
+        <div class="selection-note" id="selectionNoteBox" hidden>
+          <textarea id="selectionNoteInput" rows="3" placeholder="เขียนโน้ตของคุณ..."></textarea>
+          <div>
+            <button type="button" id="saveNoteSelectionBtn">บันทึกโน้ต</button>
+          </div>
+        </div>
+        <div class="selection-note" id="edReplaceBox" hidden>
+          <textarea id="edReplaceInput" rows="3" placeholder="ข้อความที่ถูกต้อง..."></textarea>
+          <div>
+            <button type="button" id="edReplaceSaveBtn">บันทึกการแก้ไข</button>
+          </div>
+        </div>
+      </div>
+      <div class="sel-resize" id="selResize" title="ปรับขนาด" aria-hidden="true"></div>
+    </div>
+
+    <!-- ปุ่มลอยเมื่อย่อเครื่องมือแก้ไข -->
+    <button type="button" class="sel-fab" id="selRestoreBtn" hidden aria-label="เปิดเครื่องมือแก้ไข">✎</button>
+
+    <!-- แถบเครื่องมือแอดมิน (แสดงเฉพาะโหมดแอดมิน) -->
+    <div class="admin-bar" id="adminBar" hidden>
+      <div class="admin-status" id="adminStatus"></div>
+      <div class="admin-bar-row">
+        <span class="admin-tag">โหมดแอดมิน</span>
+        <button type="button" id="adminEntriesBtn">รายการแก้ไข</button>
+        <button type="button" id="adminExportBtn">ส่งออก Editorial</button>
+        <label class="admin-import">
+          นำเข้า Editorial
+          <input id="adminImportInput" type="file" accept="application/json,.json" hidden />
+        </label>
+        <button type="button" id="adminExitBtn">ออกจากโหมดแอดมิน</button>
+      </div>
+    </div>
+
+    <!-- ไดอะล็อกเข้าสู่โหมดแอดมิน -->
+    <div class="modal-backdrop" id="adminLoginBackdrop" hidden>
+      <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="adminLoginTitle">
+        <h3 id="adminLoginTitle">เข้าสู่โหมดแอดมิน</h3>
+        <p class="modal-sub">กรอกรหัสผ่านเพื่อแก้ไขข้อความที่แสดงต่อผู้อ่านทุกคน</p>
+        <input id="adminLoginInput" type="password" placeholder="รหัสผ่าน" autocomplete="off" />
+        <div class="modal-actions">
+          <button type="button" id="adminLoginCancel" class="ghost-btn">ยกเลิก</button>
+          <button type="button" id="adminLoginSubmit">เข้าสู่ระบบ</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ไดอะล็อกแทรก/แก้ไขรูปภาพประกอบ (แอดมิน) -->
+    <div class="modal-backdrop" id="edImageBackdrop" hidden>
+      <div class="modal-card ed-image-card" role="dialog" aria-modal="true" aria-labelledby="edImageTitle">
+        <h3 id="edImageTitle">แทรกรูปภาพประกอบ</h3>
+        <p class="modal-sub">วาง URL หรือ path ของรูป (เช่น <code>/editorial-images/khandha-5.webp</code>) แล้วใส่คำบรรยายใต้ภาพ</p>
+        <label class="ed-img-field">ที่อยู่รูปภาพ (URL / path)
+          <input id="edImageUrl" type="text" placeholder="/editorial-images/khandha-5.webp" autocomplete="off" spellcheck="false" />
+        </label>
+        <label class="ed-img-field">คำบรรยายใต้ภาพ
+          <input id="edImageCaption" type="text" placeholder="แผนภาพขันธ์ 5" autocomplete="off" />
+        </label>
+        <div class="ed-img-preview-wrap" id="edImagePreviewWrap" hidden>
+          <img id="edImagePreview" alt="ตัวอย่างรูปภาพ" />
+        </div>
+        <div class="modal-actions">
+          <button type="button" id="edImageCancel" class="ghost-btn">ยกเลิก</button>
+          <button type="button" id="edImageSave">บันทึก</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- แผงรายการแก้ไข Editorial (แอดมิน) -->
+    <div class="modal-backdrop editorial-backdrop" id="editorialBackdrop" hidden>
+      <div class="editorial-panel" role="dialog" aria-modal="true" aria-labelledby="editorialPanelTitle">
+        <header class="editorial-head">
+          <div>
+            <h3 id="editorialPanelTitle">รายการแก้ไข Editorial</h3>
+            <p class="modal-sub" id="editorialStats"></p>
+          </div>
+          <button type="button" id="editorialClose" class="icon-btn" aria-label="ปิด">×</button>
+        </header>
+        <div class="ed-toolbar">
+          <div class="ed-stats" id="editorialStatsBox"></div>
+          <button type="button" id="edClearPageBtn" class="ed-clear">🗑 ล้างหน้านี้</button>
+        </div>
+        <div id="editorialList"></div>
+      </div>
+    </div>
+
+    <div class="toast" id="toast" role="status"></div>
+
+    <script src="./app.js?v=editorial-v2" type="module"></script>
+  </body>
+</html>

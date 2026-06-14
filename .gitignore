@@ -1,0 +1,7 @@
+.claude/
+**/**pycache**/
+
+patisambhida-editorial-*.json
+*.pyc
+.DS_Store
+Thumbs.db
