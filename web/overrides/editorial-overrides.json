@@ -1,3 +1,14 @@
 {
-  "_doc": "Editorial overrides (bold/italic/color/replace) — ชั้นแก้ไขข้อความของแอดมิน แสดงผลต่อผู้อ่านทุกคน | รูปแบบ: { \"book-XX\": { \"entries\": [ {\"id\": \"unique-id\", \"type\": \"bold|italic|color|replace\", \"page\": 12, \"start\": 100, \"end\": 120, \"color\": \"#0d6efd\" (เฉพาะ color), \"replacement\": \"ข้อความใหม่\" (เฉพาะ replace)} ] } } | start/end เป็น offset ในข้อความต้นฉบับของหน้านั้น (เหมือนระบบไฮไลท์) | สร้าง/แก้ผ่านโหมดแอดมิน (Ctrl+Shift+E) แล้วกด 'ส่งออก Editorial' มาวางที่นี่ | ไม่แตะ /web/data"
+  "_doc": "Editorial overrides (bold/italic/color/replace) — ชั้นแก้ไขข้อความของแอดมิน แสดงผลต่อผู้อ่านทุกคน | รูปแบบ: { \"book-XX\": { \"entries\": [ {\"id\": \"unique-id\", \"type\": \"bold|italic|color|replace\", \"page\": 12, \"start\": 100, \"end\": 120, \"color\": \"#0d6efd\" (เฉพาะ color), \"replacement\": \"ข้อความใหม่\" (เฉพาะ replace)} ] } } | start/end เป็น offset ในข้อความต้นฉบับของหน้านั้น (เหมือนระบบไฮไลท์) | สร้าง/แก้ผ่านโหมดแอดมิน (Ctrl+Shift+E) แล้วกด 'ส่งออก Editorial' มาวางที่นี่ | ไม่แตะ /web/data",
+  "book-01": {
+    "entries": [
+      {
+        "id": "phase32-test",
+        "type": "bold",
+        "page": 1,
+        "start": 0,
+        "end": 1
+      }
+    ]
+  }
 }
