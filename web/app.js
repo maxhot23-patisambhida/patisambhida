@@ -2380,6 +2380,9 @@ if (window.matchMedia("(pointer: coarse)").matches) {
     state._selChangeTimer = setTimeout(() => {
       const sel = window.getSelection();
       if (!sel || sel.isCollapsed) {
+        // ถ้า focus อยู่ในป๊อปอัป (เช่น textarea โน้ต หรือช่องแก้ไขข้อความ) การ collapse
+        // มาจากการเปิดคีย์บอร์ด ไม่ใช่ผู้ใช้ยกเลิก selection — ห้ามปิดป๊อปอัป
+        if (els.selectionPopover.contains(document.activeElement)) return;
         if (!els.selectionPopover.hidden) hideSelectionPopover(false);
         return;
       }
