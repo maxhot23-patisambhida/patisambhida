@@ -77,6 +77,7 @@ const state = {
   pendingSelection: null,
   pendingRemoveIds: [], // id ของ editorial ที่ selection ปัจจุบันทับ (ใช้ปุ่มลบรูปแบบ)
   pendingRemoveAnnIds: [], // id ของไฮไลท์ผู้อ่านที่ selection ปัจจุบันทับ
+  _selChangeTimer: null, // debounce สำหรับ selectionchange บน touch device
 
   // โหมดแอดมิน + ชั้นแก้ไข editorial (global, แสดงต่อผู้อ่านทุกคน)
   admin: false,
@@ -1122,6 +1123,7 @@ function showSelectionPopover(selectionData) {
 }
 
 function hideSelectionPopover(clearSelection = false) {
+  clearTimeout(state._selChangeTimer);
   els.selectionPopover.hidden = true;
   els.edReplaceBox.hidden = true;
   els.selectionNoteBox.hidden = true;
@@ -2368,6 +2370,24 @@ els.pageText.addEventListener("mouseup", () => {
     if (data) showSelectionPopover(data);
   }, 0);
 });
+
+// Mobile (touch device) — mouseup ไม่ fire เมื่อลากหัว selection handle บน Android/iOS
+// ใช้ selectionchange แทน พร้อม debounce 300ms เพื่อรอให้ handle หยุดลากก่อนแสดง toolbar
+if (window.matchMedia("(pointer: coarse)").matches) {
+  document.addEventListener("selectionchange", () => {
+    if (state.view !== "reader") return;
+    clearTimeout(state._selChangeTimer);
+    state._selChangeTimer = setTimeout(() => {
+      const sel = window.getSelection();
+      if (!sel || sel.isCollapsed) {
+        if (!els.selectionPopover.hidden) hideSelectionPopover(false);
+        return;
+      }
+      const data = selectionOffsetsInPage();
+      if (data) showSelectionPopover(data);
+    }, 300);
+  });
+}
 
 els.pageText.addEventListener("keyup", (event) => {
   if (!["Shift", "ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"].includes(event.key)) return;
