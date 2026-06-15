@@ -2379,6 +2379,78 @@ body.focus-mode .pager:focus-within { opacity: 1; }
 .toast .toast-main { font-weight: 600; }
 .toast .toast-hint { font-size: 12px; font-weight: 400; color: var(--muted); }
 
+/* ───────────────────────── about section (เกี่ยวกับโครงการ) ───────────────────────── */
+.about-section {
+  margin-top: 32px;
+}
+
+.about-card {
+  position: relative;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--paper);
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+}
+
+.about-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--accent-line), transparent);
+  pointer-events: none;
+}
+
+.about-block {
+  padding: clamp(20px, 3.5vw, 32px) clamp(20px, 5vw, 44px);
+}
+
+.about-heading {
+  font-family: var(--serif);
+  font-size: clamp(17px, 2.2vw, 20px);
+  font-weight: 600;
+  color: var(--ink);
+  margin: 0 0 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--line);
+  letter-spacing: 0.01em;
+}
+
+.about-block p {
+  margin: 0 0 12px;
+  color: var(--ink-soft);
+  line-height: 1.9;
+  font-size: clamp(14.5px, 1.5vw, 15.5px);
+}
+
+.about-block p:last-child { margin-bottom: 0; }
+
+.about-divider {
+  height: 1px;
+  background: var(--line);
+  margin: 0 clamp(20px, 5vw, 44px);
+}
+
+.about-name {
+  color: var(--accent-strong);
+  font-weight: 600;
+  font-style: normal;
+}
+
+.about-closing {
+  margin: 0;
+  padding: clamp(24px, 3.5vw, 36px) clamp(20px, 5vw, 44px);
+  text-align: center;
+  font-family: var(--serif);
+  font-size: clamp(14px, 1.7vw, 16px);
+  color: var(--muted);
+  line-height: 1.9;
+  border-top: 1px solid var(--line);
+}
+
 /* ───────────────────────── responsive ───────────────────────── */
 @media (max-width: 880px) {
   .appnav { display: none; }

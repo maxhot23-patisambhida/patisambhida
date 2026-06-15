@@ -2781,6 +2781,20 @@ document.addEventListener("keydown", (event) => {
 
 window.addEventListener("hashchange", () => router());
 
+document.querySelectorAll("[data-scroll-to='about-project']").forEach((link) => {
+  link.addEventListener("click", (e) => {
+    e.preventDefault();
+    const scrollToAbout = () =>
+      document.getElementById("about-project")?.scrollIntoView({ behavior: "smooth" });
+    if (state.view === "library") {
+      scrollToAbout();
+    } else {
+      location.hash = "#/";
+      setTimeout(scrollToAbout, 50);
+    }
+  });
+});
+
 /* ───────────── init ───────────── */
 
 (function applySavedTheme() {
