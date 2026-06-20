@@ -4154,8 +4154,8 @@
     },
     {
       "page": 17,
-      "type": "quote",
-      "suggested_editorial": "indent",
+      "type": "center",
+      "suggested_editorial": "align-center",
       "confidence": 0.6,
       "pdf_text": "จบ มาติกา ญาณกถาที่ ๑",
       "pdf_size": 18.0,

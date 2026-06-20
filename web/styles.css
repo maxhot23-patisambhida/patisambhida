@@ -1155,6 +1155,18 @@ body.focus-mode .pager:focus-within { opacity: 1; }
 .ed-indent { display: block; text-indent: 2em; }
 .ed-spacing-top { display: block; margin-top: 1.5em; }
 .ed-spacing-bottom { display: block; margin-bottom: 1.5em; }
+/* quote (PDF fidelity preview) — บล็อกอ้างอิงให้เด่น แต่ยังอ่านง่ายบนมือถือ
+   ใช้เส้นขอบซ้าย + พื้นจาง + เอียง แทน text-indent เพื่อให้ต่างจากย่อหน้าธรรมดา */
+.ed-quote {
+  display: block;
+  margin: 0.5em 0;
+  padding: 0.4em 0.9em;
+  border-left: 3px solid var(--accent-line);
+  background: var(--accent-soft);
+  border-radius: 0 6px 6px 0;
+  font-style: italic;
+  color: var(--ink-soft);
+}
 
 .ed-replace {
   background: color-mix(in srgb, var(--accent-soft) 70%, transparent);

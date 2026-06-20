@@ -410,7 +410,7 @@ function removeAnnotationsMany(ids) {
    แล้ว "ส่งออก Editorial" รวมเป็น JSON ไปวางในไฟล์ | offset อิง text ต้นฉบับเหมือนระบบไฮไลท์ */
 
 /* layout overrides (Phase 1.4) — block-level จัดวาง/ระยะ ตาม preset เชิงความหมาย (ไม่มีค่าตัวเลขอิสระ) */
-const LAYOUT_TYPES = new Set(["align-center", "align-left", "align-right", "indent", "spacing-top", "spacing-bottom"]);
+const LAYOUT_TYPES = new Set(["align-center", "align-left", "align-right", "indent", "spacing-top", "spacing-bottom", "quote"]);
 
 const EDITORIAL_TYPES = new Set(["bold", "italic", "color", "replace", "heading-lg", "heading-md", "heading-sm", "image-block", ...LAYOUT_TYPES]);
 
@@ -638,7 +638,7 @@ function editorialStats() {
   const counts = {
     bold: 0, italic: 0, replace: 0, important: 0, pali: 0, commentary: 0, review: 0, other: 0,
     "heading-lg": 0, "heading-md": 0, "heading-sm": 0, "image-block": 0,
-    "align-center": 0, "align-left": 0, "align-right": 0, indent: 0, "spacing-top": 0, "spacing-bottom": 0,
+    "align-center": 0, "align-left": 0, "align-right": 0, indent: 0, "spacing-top": 0, "spacing-bottom": 0, quote: 0,
   };
   for (const entry of allEffectiveEditorial()) {
     if (entry.type === "color") {
@@ -2886,7 +2886,8 @@ async function loadOverrides() {
         .filter((p) => p.start !== null && p.end !== null && p.suggested_editorial)
         .map((p) => ({
           id: `poc-${p.page}-${p.start}`,
-          type: p.suggested_editorial,
+          // quote → คลาส ed-quote เฉพาะ (ไม่ใช่ย่อหน้าธรรมดา); ที่เหลือใช้ suggested_editorial ตามเดิม
+          type: p.type === "quote" ? "quote" : p.suggested_editorial,
           page: p.page,
           start: p.start,
           end: p.end,
