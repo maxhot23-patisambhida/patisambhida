@@ -42,6 +42,11 @@ const ADMIN_PASSCODE = "patisambhida-2569";
    ต้องลงท้ายด้วย /api/publish (worker route ตามนั้น) */
 const PUBLISH_ENDPOINT = "https://patisambhida-publish.maxhot23.workers.dev/api/publish";
 
+/* โหมดพรีวิว PDF Fidelity PoC — เปิด/ปิดโดยแก้ flag นี้
+   เมื่อ true: ใส่โครงสร้าง heading/subheading/center/quote จาก book01-poc-structure.json
+   เฉพาะ book-01 หน้า 1–20 เท่านั้น ไม่แก้ข้อมูลหรือ editorial จริง */
+const PDF_FIDELITY_PREVIEW = true;
+
 const state = {
   catalog: null,
   cache: new Map(),
@@ -69,7 +74,7 @@ const state = {
   indexMode: "broad", // broad | exact
 
   // override จาก /web/overrides (โหลดตอน init ถ้ามี)
-  overrides: { toc: {}, tocRaw: {}, terms: {} },
+  overrides: { toc: {}, tocRaw: {}, terms: {}, textPatches: {} },
   // หัวข้อที่ผู้ตรวจ "ตัดออก" ชั่วคราวในโหมดตรวจสารบัญ (ยังไม่บันทึกเป็นไฟล์)
   reviewRemovals: new Map(),
 
@@ -82,6 +87,7 @@ const state = {
   // โหมดแอดมิน + ชั้นแก้ไข editorial (global, แสดงต่อผู้อ่านทุกคน)
   admin: false,
   editorialFile: {}, // เนื้อหาจาก editorial-overrides.json (baseline)
+  pocEntries: [],    // PoC structure proposals — โหลดเมื่อ PDF_FIDELITY_PREVIEW=true (book-01 หน้า 1–20)
 };
 
 const $ = (sel) => document.querySelector(sel);
@@ -449,9 +455,12 @@ function effectiveEditorial(slug) {
 }
 
 function pageEditorial(slug, page) {
-  return effectiveEditorial(slug)
-    .filter((e) => Number(e.page) === page && EDITORIAL_TYPES.has(e.type))
-    .sort((a, b) => a.start - b.start || a.end - b.end);
+  const entries = effectiveEditorial(slug)
+    .filter((e) => Number(e.page) === page && EDITORIAL_TYPES.has(e.type));
+  if (PDF_FIDELITY_PREVIEW && slug === "book-01" && page >= 1 && page <= 20) {
+    entries.push(...state.pocEntries.filter((e) => e.page === page));
+  }
+  return entries.sort((a, b) => a.start - b.start || a.end - b.end);
 }
 
 /* รวมทุกเล่มสำหรับแผงรายการ/ส่งออก */
@@ -841,11 +850,12 @@ function renderPage() {
   els.pageHeading.textContent = heading.length > 80 ? `${heading.slice(0, 80)}…` : heading;
   els.pagePct.textContent = `หน้า ${thaiNum.format(state.page)} / ${thaiNum.format(book.pages)} · ${pct}%`;
 
+  const patched = applyTextPatches(page.text || "(ไม่มีข้อความในหน้านี้)", book.slug, state.page, pageEditorial(book.slug, state.page));
   els.pageText.innerHTML = renderAnnotatedText(
-    page.text || "(ไม่มีข้อความในหน้านี้)",
+    patched.text,
     pageAnnotations(book.slug, state.page),
     state.highlightQuery,
-    pageEditorial(book.slug, state.page),
+    patched.editorial,
   );
 
   const pdfHref = `../pdf/${encodeURIComponent(book.file)}#page=${page.number}`;
@@ -916,6 +926,35 @@ function wrapChunk(chunk, { ann, matched, bold, italic, color, heading, layouts 
   if (layouts && layouts.length) for (const t of layouts) blockClasses.push(`ed-${t}`);
   if (blockClasses.length) part = `<span class="${blockClasses.join(" ")}">${part}</span>`;
   return part;
+}
+
+/* แก้ข้อความ OCR ผิดจาก text-patches.json — ปรับ editorial offsets ให้สอดคล้องด้วย */
+function applyTextPatches(text, slug, pageNum, editorial) {
+  const patches = state.overrides.textPatches?.[slug]?.[String(pageNum)];
+  if (!patches || patches.length === 0) return { text, editorial };
+
+  let out = text;
+  const ed = editorial.map((e) => ({ ...e }));
+  let cumDelta = 0;
+
+  for (const [origStart, origEnd, replacement] of patches) {
+    const s = origStart + cumDelta;
+    const e = origEnd + cumDelta;
+    const delta = replacement.length - (e - s);
+    out = out.slice(0, s) + replacement + out.slice(e);
+    for (const entry of ed) {
+      if (entry.start >= e) {
+        entry.start += delta;
+        entry.end += delta;
+      } else if (entry.end > s) {
+        if (entry.end >= e) entry.end += delta;
+        else entry.end = s + replacement.length; // end อยู่ในช่วง patch — extend ครอบ replacement
+      }
+    }
+    cumDelta += delta;
+  }
+
+  return { text: out, editorial: ed };
 }
 
 function renderAnnotatedText(text, annotations, query = "", editorial = []) {
@@ -1468,7 +1507,7 @@ async function openSection(slug, index) {
     chunks.push(`
       <div class="sec-page">
         <a class="sec-page-no" href="#/book/${slug}/${p}" title="เปิดหน้านี้แบบรายหน้า">หน้า ${thaiNum.format(p)}</a>
-        <div class="sec-page-text">${renderAnnotatedText(page.text || "(ไม่มีข้อความในหน้านี้)", [], "", pageEditorial(slug, p))}</div>
+        <div class="sec-page-text">${(() => { const pt = applyTextPatches(page.text || "(ไม่มีข้อความในหน้านี้)", slug, p, pageEditorial(slug, p)); return renderAnnotatedText(pt.text, [], "", pt.editorial); })()}</div>
       </div>
     `);
   }
@@ -2810,10 +2849,11 @@ applyFontSize();
 /* โหลด override ถ้ามี — ไม่มีหรือพังก็ทำงานต่อด้วย heuristic ล้วน */
 async function loadOverrides() {
   // no-cache: ไฟล์ override ถูกแก้บ่อยระหว่างตรวจทาน อย่าให้ browser cache ค้าง
-  const [toc, terms, editorial] = await Promise.allSettled([
+  const [toc, terms, editorial, textPatches] = await Promise.allSettled([
     loadJson("./overrides/toc-overrides.json", { cache: "no-cache" }),
     loadJson("./overrides/term-overrides.json", { cache: "no-cache" }),
     loadJson("./overrides/editorial-overrides.json", { cache: "no-cache" }),
+    loadJson("./overrides/text-patches.json", { cache: "no-cache" }),
   ]);
   if (toc.status === "fulfilled" && toc.value && typeof toc.value === "object") {
     state.overrides.tocRaw = toc.value;
@@ -2831,6 +2871,27 @@ async function loadOverrides() {
     const cleaned = { ...editorial.value };
     delete cleaned._doc;
     state.editorialFile = cleaned;
+  }
+  if (textPatches.status === "fulfilled" && textPatches.value && typeof textPatches.value === "object") {
+    const cleaned = { ...textPatches.value };
+    delete cleaned._doc;
+    state.overrides.textPatches = cleaned;
+  }
+  if (PDF_FIDELITY_PREVIEW) {
+    const [poc] = await Promise.allSettled([
+      loadJson("./overrides/book01-poc-structure.json", { cache: "no-cache" }),
+    ]);
+    if (poc.status === "fulfilled" && Array.isArray(poc.value?.proposals)) {
+      state.pocEntries = poc.value.proposals
+        .filter((p) => p.start !== null && p.end !== null && p.suggested_editorial)
+        .map((p) => ({
+          id: `poc-${p.page}-${p.start}`,
+          type: p.suggested_editorial,
+          page: p.page,
+          start: p.start,
+          end: p.end,
+        }));
+    }
   }
 }
 

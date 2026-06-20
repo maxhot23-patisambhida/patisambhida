@@ -8,8 +8,126 @@ from pypdf import PdfReader
 
 
 ROOT = Path(__file__).resolve().parents[1]
-PDF_DIR = ROOT / "pdf"
+PDF_DIR = ROOT / "web" / "pdf"
 DATA_DIR = ROOT / "web" / "data"
+
+# ── Book-10: PUA chars (U+F700–U+F7FF) จากฟอนต์ไทยเก่า Windows encoding ──────
+# แต่ละ PUA char map กลับเป็น Thai Unicode ที่ถูกต้อง
+_PUA_MAP: dict[str, str] = {
+    "": "•",   # bullet
+    "": "ิ",   # sara i (alt position)
+    "": "ี",   # sara ii (alt position)
+    "": "ึ",   # sara ue (alt position)
+    "": "ื",   # sara uee (alt position)
+    "": "่",   # mai ek (alt position)
+    "": "้",   # mai tho (stacking position)
+    "": "่",   # mai ek
+    "": "้",   # mai tho
+    "": "๊",   # mai tri
+    "": "๋",   # mai chattawa
+    "": "์",   # thanthakat
+    "": "ํ",   # nikhahit (Pali)
+    "": "ั",   # sara a
+    "": "ฺ",   # phinthu (Pali)
+    "": "็",   # maitaikhu
+    "": "่",   # mai ek (stacking with sara ii)
+    "": "้",   # mai tho (stacking)
+    "": "่",
+    "": "ั",
+}
+
+_PUA_RE = re.compile("|".join(re.escape(k) for k in _PUA_MAP))
+
+
+def fix_pua_encoding(text: str) -> str:
+    """แก้ PUA chars จากฟอนต์ไทย Windows เก่า (book-10)."""
+    return _PUA_RE.sub(lambda m: _PUA_MAP[m.group()], text)
+
+
+# ── Book-09: ASCII ทำหน้าที่เป็น Thai diacritics จาก font encoding ──────────
+# ใช้เฉพาะเมื่อ ASCII char ปรากฏอยู่หลัง Thai character (lookbehind)
+# แต่ละ ASCII char map เป็น Thai combining mark
+_ASCII_DIACRITIC_MAP: dict[str, str] = {
+    "=": "่",   # mai ek (most common, 3677x)
+    "9": "้",   # mai tho (2197x)
+    "H": "็",   # maitaikhu (806x)
+    "M": "ั",   # sara a (367x)
+    "b": "์",   # thanthakat (271x)
+    "*": "่",   # mai ek alt (148x)
+    "<": "้",   # mai tho alt (132x)
+    "w": "ั",   # sara a alt (110x)
+    "r": "ิ",   # sara i (49x)
+    "P": "็",   # maitaikhu alt (45x)
+    "6": "็",   # maitaikhu alt (42x)
+    "R": "้",   # mai tho alt (38x)
+    "Q": "่",   # mai ek alt (30x)
+    "5": "ั",   # sara a alt (27x)
+    ":": "ั",   # sara a alt (27x)
+    "A": "ัฏ",  # sara a + ฏ consonant ligature (สติปัฏฐาน, อัฏฐ etc.)
+    "7": "็",   # maitaikhu alt (20x)
+    "S": "้",   # mai tho alt (19x)
+    "u": "้",   # mai tho alt (18x)
+    "o": "่",   # mai ek alt (17x)
+    "Y": "์",   # thanthakat alt
+    "#": "่",   # mai ek alt
+    "'": "่",   # mai ek alt (apostrophe)
+    "W": "ั",   # sara a alt
+    "@": "",    # noise char — remove
+    # ── ชุดที่ 2: พบจากการวิเคราะห์ซ้ำ ──────────────────────────────────
+    "O": "์",   # thanthakat (องค์, ชฌงค์)
+    "N": "์",   # thanthakat alt
+    "X": "ั",   # sara a (วิปัสสนา)
+    "a": "ั",   # sara a alt
+    "G": "ั",   # sara a alt
+    "E": "ั",   # sara a alt (โสตาปัตติ)
+    "$": "ั",   # sara a alt
+    "L": "ิ",   # sara i (ปิติ)
+    "y": "ิ",   # sara i alt (เปิด)
+    "i": "ิ",   # sara i alt
+    "d": "ิ",   # sara i alt
+    "h": "ิ",   # sara i alt
+    ">": "้",   # mai tho (ด้วย)
+    "3": "้",   # mai tho alt
+    "e": "้",   # mai tho alt (ฟุ้ง)
+    "_": "้",   # mai tho alt
+    "4": "้",   # mai tho alt
+    "?": "็",   # maitaikhu alt (เป็น)
+    "8": "็",   # maitaikhu alt
+    "c": "่",   # mai ek alt
+    "I": "่",   # mai ek alt (ร่วม)
+    "2": "่",   # mai ek alt
+}
+
+_THAI_BLOCK = "฀-๿"
+# match iff immediately preceded by a Thai character
+_ASCII_DIAC_RE = re.compile(
+    f"(?<=[{_THAI_BLOCK}])({'|'.join(re.escape(k) for k in _ASCII_DIACRITIC_MAP)})"
+)
+
+
+def fix_ascii_diacritics(text: str) -> str:
+    """แก้ ASCII chars ที่ถูก font เก่า map ไว้แทน Thai diacritics (book-09)."""
+    # @A compound: @ is noise, A = ัฏ — ต้องจัดการก่อน lookbehind จะทำงาน
+    text = re.sub(r'(?<=[฀-๿])@A', 'ัฏ', text)
+    text = _ASCII_DIAC_RE.sub(lambda m: _ASCII_DIACRITIC_MAP[m.group(1)], text)
+    return _fix_book09_wrong_mai(text)
+
+
+def _fix_book09_wrong_mai(text: str) -> str:
+    """แก้ ็ ที่ถูก map ผิดจาก H — ใน context ที่ควรเป็น ่ หรือ ั."""
+    # [พยัญชนะ]็า ไม่มีใน Thai จริง — ควรเป็น ่า
+    text = re.sub(r'(?<=[ก-ฮ])็า', '่า', text)
+    # สระ ู/ุ + ็ ไม่มี — ควรเป็น ่ (อยู่, กลุ่ม ฯลฯ)
+    text = text.replace('ู็', 'ู่')
+    text = text.replace('ุ็', 'ุ่')
+    # ไม็ → ไม่ (ไม่ = not, common word)
+    text = text.replace('ไม็', 'ไม่')
+    # ล็ว → ล่ว (ล่วง)
+    text = text.replace('ล็ว', 'ล่ว')
+    # ป็ส → ปัส (วิปัสสนา)
+    text = text.replace('ป็ส', 'ปัส')
+    return text
+
 
 BOOK_NOTES = {
     1: "มาติกาและญาณุทเทส เหมาะสำหรับใช้เป็นแผนที่ภาพรวมของญาณ ๗๓",
@@ -20,15 +138,17 @@ BOOK_NOTES = {
     6: "ปหาตัพพนิทเทส ทุติยภาณวาระ เล่ม ๑ เป็นคำอธิบายยาวต่อเนื่อง",
     7: "ปหาตัพพะ ทติยะ ภาค ๒ ต่อเนื่องเรื่องอิทธิบาทและมรรคภาวนา",
     8: "ปหาตัพพะ ทุติยะ ภาค ๓ จบ ว่าด้วยคุณธรรมและโลกุตตรธรรม",
+    9: "ภาเวตัพพนิทเทส ว่าด้วยธรรมที่ควรเจริญ ตอนต้น",
+    10: "ภาเวตัพพนิทเทส ว่าด้วยธรรมที่ควรเจริญ ต่อเนื่อง",
 }
 
 
 def thai_digit_to_int(text: str) -> int | None:
     digits = "๐๑๒๓๔๕๖๗๘๙"
-    found = re.search(r"[๑๒๓๔๕๖๗๘๙]", text)
+    found = re.search(r"[๐-๙]+", text)
     if not found:
         return None
-    return digits.index(found.group(0))
+    return int("".join(str(digits.index(c)) for c in found.group(0)))
 
 
 def slug_for(path: Path, fallback: int) -> str:
@@ -122,7 +242,7 @@ def detect_headings(text: str) -> list[str]:
 
 def build() -> None:
     DATA_DIR.mkdir(parents=True, exist_ok=True)
-    pdfs = sorted(PDF_DIR.glob("*.pdf"))
+    pdfs = sorted(PDF_DIR.glob("*.pdf"), key=lambda p: thai_digit_to_int(p.stem) or 0)
     catalog = {"title": "ปฏิสัมภิทามรรค", "books": []}
 
     for idx, pdf_path in enumerate(pdfs, start=1):
@@ -133,6 +253,11 @@ def build() -> None:
         char_count = 0
         for page_index, page in enumerate(reader.pages, start=1):
             raw = page.extract_text() or ""
+            # แก้ encoding จากฟอนต์เก่า ก่อน normalize
+            if number == 10:
+                raw = fix_pua_encoding(raw)
+            elif number == 9:
+                raw = fix_ascii_diacritics(raw)
             text = normalize_text(raw)
             char_count += len(text)
             pages.append(
