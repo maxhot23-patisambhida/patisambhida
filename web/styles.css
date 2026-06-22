@@ -1144,9 +1144,9 @@ body.focus-mode .pager:focus-within { opacity: 1; }
 /* หัวข้อ editorial — block ขนาดตาม preset (ไม่มีขนาดอิสระ)
    ใช้ margin คุมระยะห่าง ไม่พึ่ง line-height ใหญ่ ให้รู้สึกเหมือนหัวข้อในหนังสือจริง */
 .ed-heading { display: block; }
-.ed-h-lg { font-size: 1.8em; font-weight: 700; line-height: 1.3; margin: 0.8em 0 0.3em; }
-.ed-h-md { font-size: 1.4em; font-weight: 700; line-height: 1.35; margin: 0.7em 0 0.25em; }
-.ed-h-sm { font-size: 1.2em; font-weight: 600; line-height: 1.4; margin: 0.5em 0 0.2em; }
+.ed-h-lg { font-size: 1em; font-weight: 400; line-height: 2.05; margin: 0.35em 0 0.15em; }
+.ed-h-md { font-size: 1em; font-weight: 400; line-height: 2.05; margin: 0.30em 0 0.12em; }
+.ed-h-sm { font-size: 1em; font-weight: 400; line-height: 2.05; margin: 0.25em 0 0.10em; }
 
 /* layout overrides (Phase 1.4) — block จัดวาง/ระยะ ตาม preset เชิงความหมาย เห็นได้กับผู้อ่านทุกคน */
 .ed-align-center { display: block; text-align: center; }
@@ -1155,17 +1155,16 @@ body.focus-mode .pager:focus-within { opacity: 1; }
 .ed-indent { display: block; text-indent: 2em; }
 .ed-spacing-top { display: block; margin-top: 1.5em; }
 .ed-spacing-bottom { display: block; margin-bottom: 1.5em; }
-/* quote (PDF fidelity preview) — บล็อกอ้างอิงให้เด่น แต่ยังอ่านง่ายบนมือถือ
-   ใช้เส้นขอบซ้าย + พื้นจาง + เอียง แทน text-indent เพื่อให้ต่างจากย่อหน้าธรรมดา */
+/* quote — print-faithful: indent only, no border/background/italic */
 .ed-quote {
   display: block;
-  margin: 0.5em 0;
-  padding: 0.4em 0.9em;
-  border-left: 3px solid var(--accent-line);
-  background: var(--accent-soft);
-  border-radius: 0 6px 6px 0;
-  font-style: italic;
-  color: var(--ink-soft);
+  margin: 0.3em 0 0.3em 2em;
+  padding: 0;
+  border-left: none;
+  background: none;
+  border-radius: 0;
+  font-style: normal;
+  color: inherit;
 }
 
 .ed-replace {
