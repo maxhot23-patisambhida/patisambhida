@@ -9802,5 +9802,705 @@
         "end": 1
       }
     ]
+  },
+  "book-02": {
+    "entries": [
+      {
+        "id": "ann-b2-zbxxt",
+        "type": "bold",
+        "page": 1,
+        "start": 68,
+        "end": 70
+      },
+      {
+        "id": "ann-b2-0tz0a",
+        "type": "bold",
+        "page": 1,
+        "start": 306,
+        "end": 308
+      },
+      {
+        "id": "ann-b2-0w6ch",
+        "type": "bold",
+        "page": 1,
+        "start": 345,
+        "end": 347
+      },
+      {
+        "id": "ann-b2-511pe",
+        "type": "color",
+        "color": "#8e44ad",
+        "page": 1,
+        "start": 345,
+        "end": 411
+      },
+      {
+        "id": "ann-b2-suqql",
+        "type": "bold",
+        "page": 1,
+        "start": 598,
+        "end": 600
+      },
+      {
+        "id": "ann-b2-8a20e",
+        "type": "bold",
+        "page": 1,
+        "start": 642,
+        "end": 644
+      },
+      {
+        "id": "ann-b2-vdjav",
+        "type": "color",
+        "color": "#8e44ad",
+        "page": 1,
+        "start": 642,
+        "end": 708
+      },
+      {
+        "id": "ann-b2-o9ege",
+        "type": "bold",
+        "page": 1,
+        "start": 825,
+        "end": 827
+      },
+      {
+        "id": "ann-b2-2mog2",
+        "type": "bold",
+        "page": 1,
+        "start": 861,
+        "end": 863
+      },
+      {
+        "id": "ann-b2-qy5xa",
+        "type": "color",
+        "color": "#8e44ad",
+        "page": 1,
+        "start": 861,
+        "end": 924
+      },
+      {
+        "id": "ann-b2-jkn4e",
+        "type": "bold",
+        "page": 2,
+        "start": 2,
+        "end": 4
+      },
+      {
+        "id": "ann-b2-f1z9z",
+        "type": "bold",
+        "page": 2,
+        "start": 47,
+        "end": 49
+      },
+      {
+        "id": "ann-b2-dyq08",
+        "type": "color",
+        "color": "#8e44ad",
+        "page": 2,
+        "start": 47,
+        "end": 111
+      },
+      {
+        "id": "ann-b2-xilqh",
+        "type": "bold",
+        "page": 2,
+        "start": 230,
+        "end": 232
+      },
+      {
+        "id": "ann-b2-wyiep",
+        "type": "bold",
+        "page": 2,
+        "start": 280,
+        "end": 282
+      },
+      {
+        "id": "ann-b2-5jl29",
+        "type": "color",
+        "color": "#8e44ad",
+        "page": 2,
+        "start": 280,
+        "end": 347
+      },
+      {
+        "id": "ann-b2-5dngd",
+        "type": "bold",
+        "page": 2,
+        "start": 465,
+        "end": 467
+      },
+      {
+        "id": "ann-b2-pvoyy",
+        "type": "bold",
+        "page": 2,
+        "start": 508,
+        "end": 510
+      },
+      {
+        "id": "ann-b2-zsr75",
+        "type": "color",
+        "color": "#8e44ad",
+        "page": 2,
+        "start": 508,
+        "end": 572
+      },
+      {
+        "id": "ann-b2-jkc9n",
+        "type": "bold",
+        "page": 2,
+        "start": 703,
+        "end": 705
+      },
+      {
+        "id": "ann-b2-9bst7",
+        "type": "bold",
+        "page": 2,
+        "start": 748,
+        "end": 750
+      },
+      {
+        "id": "ann-b2-n53rk",
+        "type": "color",
+        "color": "#8e44ad",
+        "page": 2,
+        "start": 748,
+        "end": 813
+      },
+      {
+        "id": "ann-b2-jqa7m",
+        "type": "color",
+        "color": "#6c757d",
+        "page": 2,
+        "start": 902,
+        "end": 932
+      },
+      {
+        "id": "ann-b2-1lrp1",
+        "type": "bold",
+        "page": 2,
+        "start": 987,
+        "end": 989
+      },
+      {
+        "id": "ann-b2-fuoky",
+        "type": "bold",
+        "page": 2,
+        "start": 1029,
+        "end": 1031
+      },
+      {
+        "id": "ann-b2-0wsv1",
+        "type": "color",
+        "color": "#8e44ad",
+        "page": 2,
+        "start": 1029,
+        "end": 1095
+      },
+      {
+        "id": "ann-b2-txlgu",
+        "type": "bold",
+        "page": 2,
+        "start": 1226,
+        "end": 1228
+      },
+      {
+        "id": "ann-b2-6okfu",
+        "type": "bold",
+        "page": 2,
+        "start": 1272,
+        "end": 1274
+      },
+      {
+        "id": "ann-b2-2smu3",
+        "type": "color",
+        "color": "#8e44ad",
+        "page": 2,
+        "start": 1272,
+        "end": 1340
+      },
+      {
+        "id": "ann-b2-gspvk",
+        "type": "bold",
+        "page": 3,
+        "start": 136,
+        "end": 139
+      },
+      {
+        "id": "ann-b2-px4lx",
+        "type": "bold",
+        "page": 3,
+        "start": 172,
+        "end": 175
+      },
+      {
+        "id": "ann-b2-o6dkk",
+        "type": "color",
+        "color": "#8e44ad",
+        "page": 3,
+        "start": 172,
+        "end": 238
+      },
+      {
+        "id": "ann-b2-7cocg",
+        "type": "bold",
+        "page": 3,
+        "start": 351,
+        "end": 354
+      },
+      {
+        "id": "ann-b2-7ubrr",
+        "type": "bold",
+        "page": 3,
+        "start": 387,
+        "end": 390
+      },
+      {
+        "id": "ann-b2-oyfc1",
+        "type": "color",
+        "color": "#8e44ad",
+        "page": 3,
+        "start": 387,
+        "end": 452
+      },
+      {
+        "id": "ann-b2-55dlu",
+        "type": "bold",
+        "page": 3,
+        "start": 565,
+        "end": 568
+      },
+      {
+        "id": "ann-b2-go20x",
+        "type": "bold",
+        "page": 3,
+        "start": 600,
+        "end": 603
+      },
+      {
+        "id": "ann-b2-sah9a",
+        "type": "color",
+        "color": "#8e44ad",
+        "page": 3,
+        "start": 600,
+        "end": 663
+      },
+      {
+        "id": "ann-b2-l4360",
+        "type": "bold",
+        "page": 3,
+        "start": 775,
+        "end": 778
+      },
+      {
+        "id": "ann-b2-j94wq",
+        "type": "bold",
+        "page": 3,
+        "start": 794,
+        "end": 797
+      },
+      {
+        "id": "ann-b2-np0aq",
+        "type": "color",
+        "color": "#8e44ad",
+        "page": 3,
+        "start": 794,
+        "end": 861
+      },
+      {
+        "id": "ann-b2-463xg",
+        "type": "bold",
+        "page": 3,
+        "start": 957,
+        "end": 960
+      },
+      {
+        "id": "ann-b2-qhk31",
+        "type": "bold",
+        "page": 3,
+        "start": 982,
+        "end": 985
+      },
+      {
+        "id": "ann-b2-txuws",
+        "type": "color",
+        "color": "#8e44ad",
+        "page": 3,
+        "start": 982,
+        "end": 1054
+      },
+      {
+        "id": "ann-b2-8ljkh",
+        "type": "bold",
+        "page": 4,
+        "start": 2,
+        "end": 5
+      },
+      {
+        "id": "ann-b2-39l8e",
+        "type": "bold",
+        "page": 4,
+        "start": 26,
+        "end": 29
+      },
+      {
+        "id": "ann-b2-38m6b",
+        "type": "color",
+        "color": "#8e44ad",
+        "page": 4,
+        "start": 26,
+        "end": 98
+      },
+      {
+        "id": "ann-b2-pdbqz",
+        "type": "bold",
+        "page": 4,
+        "start": 199,
+        "end": 202
+      },
+      {
+        "id": "ann-b2-j36y0",
+        "type": "bold",
+        "page": 4,
+        "start": 235,
+        "end": 238
+      },
+      {
+        "id": "ann-b2-lad86",
+        "type": "bold",
+        "page": 5,
+        "start": 64,
+        "end": 66
+      },
+      {
+        "id": "ann-b2-t0hzs",
+        "type": "color",
+        "color": "#8e44ad",
+        "page": 5,
+        "start": 64,
+        "end": 130
+      },
+      {
+        "id": "ann-b2-30b6l",
+        "type": "bold",
+        "page": 5,
+        "start": 131,
+        "end": 133
+      },
+      {
+        "id": "ann-b2-up539",
+        "type": "color",
+        "color": "#8e44ad",
+        "page": 5,
+        "start": 131,
+        "end": 205
+      },
+      {
+        "id": "ann-b2-lovta",
+        "type": "bold",
+        "page": 5,
+        "start": 206,
+        "end": 208
+      },
+      {
+        "id": "ann-b2-1tlws",
+        "type": "color",
+        "color": "#8e44ad",
+        "page": 5,
+        "start": 206,
+        "end": 249
+      },
+      {
+        "id": "ann-b2-cg988",
+        "type": "bold",
+        "page": 5,
+        "start": 250,
+        "end": 252
+      },
+      {
+        "id": "ann-b2-3ud1k",
+        "type": "color",
+        "color": "#8e44ad",
+        "page": 5,
+        "start": 250,
+        "end": 296
+      },
+      {
+        "id": "ann-b2-bxf1d",
+        "type": "bold",
+        "page": 5,
+        "start": 297,
+        "end": 299
+      },
+      {
+        "id": "ann-b2-auayo",
+        "type": "color",
+        "color": "#8e44ad",
+        "page": 5,
+        "start": 297,
+        "end": 346
+      },
+      {
+        "id": "ann-b2-tpd2p",
+        "type": "bold",
+        "page": 5,
+        "start": 411,
+        "end": 413
+      },
+      {
+        "id": "ann-b2-fiu4p",
+        "type": "bold",
+        "page": 5,
+        "start": 789,
+        "end": 791
+      },
+      {
+        "id": "ann-b2-ayjcf",
+        "type": "bold",
+        "page": 5,
+        "start": 1100,
+        "end": 1102
+      },
+      {
+        "id": "ann-b2-pcokv",
+        "type": "bold",
+        "page": 6,
+        "start": 212,
+        "end": 214
+      },
+      {
+        "id": "ann-b2-6d75g",
+        "type": "bold",
+        "page": 6,
+        "start": 891,
+        "end": 893
+      },
+      {
+        "id": "ann-b2-gnmql",
+        "type": "color",
+        "color": "#6c757d",
+        "page": 7,
+        "start": 621,
+        "end": 657
+      },
+      {
+        "id": "ann-b2-70xk9",
+        "type": "bold",
+        "page": 8,
+        "start": 148,
+        "end": 150
+      },
+      {
+        "id": "ann-b2-3yue5",
+        "type": "color",
+        "color": "#8e44ad",
+        "page": 8,
+        "start": 148,
+        "end": 193
+      },
+      {
+        "id": "ann-b2-fua36",
+        "type": "color",
+        "color": "#6c757d",
+        "page": 8,
+        "start": 501,
+        "end": 561
+      },
+      {
+        "id": "ann-b2-g2sqg",
+        "type": "bold",
+        "page": 8,
+        "start": 562,
+        "end": 564
+      },
+      {
+        "id": "ann-b2-1gzue",
+        "type": "color",
+        "color": "#8e44ad",
+        "page": 8,
+        "start": 562,
+        "end": 595
+      },
+      {
+        "id": "ann-b2-6v7ct",
+        "type": "bold",
+        "page": 8,
+        "start": 826,
+        "end": 828
+      },
+      {
+        "id": "ann-b2-gyx5i",
+        "type": "bold",
+        "page": 8,
+        "start": 872,
+        "end": 874
+      },
+      {
+        "id": "ann-b2-fw0qm",
+        "type": "bold",
+        "page": 8,
+        "start": 981,
+        "end": 983
+      },
+      {
+        "id": "ann-b2-fdgu7",
+        "type": "color",
+        "color": "#8e44ad",
+        "page": 8,
+        "start": 981,
+        "end": 1026
+      },
+      {
+        "id": "ann-b2-6zjvi",
+        "type": "color",
+        "color": "#6c757d",
+        "page": 8,
+        "start": 1007,
+        "end": 1026
+      },
+      {
+        "id": "ann-b2-q6r9y",
+        "type": "bold",
+        "page": 8,
+        "start": 1027,
+        "end": 1029
+      },
+      {
+        "id": "ann-b2-8l47j",
+        "type": "color",
+        "color": "#8e44ad",
+        "page": 8,
+        "start": 1027,
+        "end": 1061
+      },
+      {
+        "id": "ann-b2-x8cs8",
+        "type": "bold",
+        "page": 9,
+        "start": 102,
+        "end": 104
+      },
+      {
+        "id": "ann-b2-87r2i",
+        "type": "color",
+        "color": "#8e44ad",
+        "page": 9,
+        "start": 102,
+        "end": 131
+      },
+      {
+        "id": "ann-b2-je6gn",
+        "type": "bold",
+        "page": 9,
+        "start": 426,
+        "end": 428
+      },
+      {
+        "id": "ann-b2-3euah",
+        "type": "color",
+        "color": "#8e44ad",
+        "page": 9,
+        "start": 426,
+        "end": 497
+      },
+      {
+        "id": "ann-b2-5omeu",
+        "type": "bold",
+        "page": 9,
+        "start": 506,
+        "end": 508
+      },
+      {
+        "id": "ann-b2-97i7h",
+        "type": "color",
+        "color": "#8e44ad",
+        "page": 9,
+        "start": 506,
+        "end": 571
+      },
+      {
+        "id": "ann-b2-7n57n",
+        "type": "color",
+        "color": "#6c757d",
+        "page": 9,
+        "start": 572,
+        "end": 610
+      },
+      {
+        "id": "ann-b2-4oisw",
+        "type": "bold",
+        "page": 9,
+        "start": 657,
+        "end": 659
+      },
+      {
+        "id": "ann-b2-zqlpa",
+        "type": "color",
+        "color": "#8e44ad",
+        "page": 9,
+        "start": 657,
+        "end": 705
+      },
+      {
+        "id": "ann-b2-nfs1j",
+        "type": "bold",
+        "page": 10,
+        "start": 3,
+        "end": 5
+      },
+      {
+        "id": "ann-b2-dngmb",
+        "type": "color",
+        "color": "#8e44ad",
+        "page": 10,
+        "start": 3,
+        "end": 53
+      },
+      {
+        "id": "ann-b2-jcfxv",
+        "type": "bold",
+        "page": 10,
+        "start": 395,
+        "end": 397
+      },
+      {
+        "id": "ann-b2-jtg89",
+        "type": "color",
+        "color": "#8e44ad",
+        "page": 10,
+        "start": 395,
+        "end": 443
+      },
+      {
+        "id": "ann-b2-buqyq",
+        "type": "bold",
+        "page": 10,
+        "start": 764,
+        "end": 766
+      },
+      {
+        "id": "ann-b2-jlz8f",
+        "type": "color",
+        "color": "#8e44ad",
+        "page": 10,
+        "start": 764,
+        "end": 814
+      },
+      {
+        "id": "ann-b2-rvdj0",
+        "type": "color",
+        "color": "#6c757d",
+        "page": 10,
+        "start": 1363,
+        "end": 1383
+      },
+      {
+        "id": "ann-b2-ok3yd",
+        "type": "color",
+        "color": "#6c757d",
+        "page": 10,
+        "start": 1482,
+        "end": 1492
+      }
+    ]
   }
 }
