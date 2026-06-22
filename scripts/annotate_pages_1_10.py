@@ -41,15 +41,15 @@ COLOR_META  = "#6c757d"   # muted grey — parenthetical meta
 
 def gen_id():
     suffix = "".join(random.choices(string.ascii_lowercase + string.digits, k=5))
-    return f"ann-p1120-{suffix}"
+    return f"ann-{suffix}"
 
 new_entries = []
 
-for page_idx in range(10, 20):      # pages 11–20
+for page_idx in range(len(pages)):  # all pages in book
     p = pages[page_idx]
-    page_num = p["number"]          # 1–10
+    page_num = p["number"]
     text = p["text"]
-    is_content_page = True  # pages 11-20 are all content pages
+    is_content_page = page_num >= 5  # pages 1-4 TOC, 5+ content
 
     # Walk line by line, track character offset
     offset = 0
