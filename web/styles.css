@@ -1143,10 +1143,10 @@ body.focus-mode .pager:focus-within { opacity: 1; }
 
 /* หัวข้อ editorial — block ขนาดตาม preset (ไม่มีขนาดอิสระ)
    ใช้ margin คุมระยะห่าง ไม่พึ่ง line-height ใหญ่ ให้รู้สึกเหมือนหัวข้อในหนังสือจริง */
-.ed-heading { display: block; }
-.ed-h-lg { font-size: 1em; font-weight: 400; line-height: 2.05; margin: 0.35em 0 0.15em; }
-.ed-h-md { font-size: 1em; font-weight: 400; line-height: 2.05; margin: 0.30em 0 0.12em; }
-.ed-h-sm { font-size: 1em; font-weight: 400; line-height: 2.05; margin: 0.25em 0 0.10em; }
+.ed-heading { display: inline; }
+.ed-h-lg { font-size: 1em; font-weight: 400; line-height: 2.05; margin: 0; }
+.ed-h-md { font-size: 1em; font-weight: 400; line-height: 2.05; margin: 0; }
+.ed-h-sm { font-size: 1em; font-weight: 400; line-height: 2.05; margin: 0; }
 
 /* layout overrides (Phase 1.4) — block จัดวาง/ระยะ ตาม preset เชิงความหมาย เห็นได้กับผู้อ่านทุกคน */
 .ed-align-center { display: block; text-align: center; }
