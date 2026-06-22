@@ -39,7 +39,7 @@ def gen_id():
 
 new_entries = []
 
-for page_idx in range(min(10, len(pages))):  # pages 1–10 (or fewer if book is shorter)
+for page_idx in range(len(pages)):  # all pages in book
     p = pages[page_idx]
     page_num = p["number"]
     text = p["text"]
@@ -96,7 +96,7 @@ for page_idx in range(min(10, len(pages))):  # pages 1–10 (or fewer if book is
 
         offset = line_end + 1
 
-print(f"Generated {len(new_entries)} new annotations for Book 02 pages 1–10.")
+print(f"Generated {len(new_entries)} new annotations for Book 02 ({len(pages)} pages).")
 
 # ── merge into ed_raw ──────────────────────────────────────────────────────
 if "book-02" not in ed_raw:
