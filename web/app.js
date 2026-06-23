@@ -957,11 +957,20 @@ function ttsBuildLines() {
   return lines;
 }
 
+// ลบสัญลักษณ์ที่ไม่ต้องการให้อ่านออกเสียง (เช่น ~ ที่ใช้คั่นบาลี-ไทย)
+// คงข้อความบนหน้าจอไว้เหมือนเดิม ตัดเฉพาะตอนส่งให้เครื่องอ่าน
+function ttsCleanForSpeech(text) {
+  return text.replace(/~/g, " ").replace(/\s+/g, " ").trim();
+}
+
 function ttsSpeakNext() {
   if (!tts.playing || tts.idx >= tts.lines.length) return ttsStop();
   const line = tts.lines[tts.idx];
   ttsHighlightLine(line);
-  const utter = new SpeechSynthesisUtterance(line.text);
+  const spoken = ttsCleanForSpeech(line.text);
+  // บรรทัดที่เหลือแต่สัญลักษณ์ (ว่างหลังตัด ~) — ข้ามไปบรรทัดถัดไป
+  if (!spoken) { tts.idx += 1; return ttsSpeakNext(); }
+  const utter = new SpeechSynthesisUtterance(spoken);
   if (tts.voice) utter.voice = tts.voice;
   utter.lang = tts.voice ? tts.voice.lang : "th-TH";
   utter.rate = 0.95;
