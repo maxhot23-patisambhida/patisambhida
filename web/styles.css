@@ -254,6 +254,18 @@ kbd {
 :root.dark .ic-sun { display: none; }
 :root.dark .ic-moon { display: block; }
 
+/* ปุ่มฟัง: ขณะกำลังอ่าน — เน้นด้วยสี accent + เต้นเบา ๆ */
+#listenBtn.on { animation: listen-pulse 1.8s ease-in-out infinite; }
+@keyframes listen-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 var(--accent-soft); }
+  50% { box-shadow: 0 0 0 4px var(--accent-soft); }
+}
+
+/* ประโยคที่กำลังอ่านออกเสียง — ไฮไลต์โดยไม่แก้ DOM (คงสี annotation เดิมไว้) */
+::highlight(tts-line) {
+  background: var(--mark);
+}
+
 /* ───────────────────────── views ───────────────────────── */
 .view {
   max-width: 1120px;

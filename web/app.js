@@ -127,6 +127,7 @@ const els = {
   pdfLink: $("#pdfLink"),
   bookmarkBtn: $("#bookmarkBtn"),
   notesBtn: $("#notesBtn"),
+  listenBtn: $("#listenBtn"),
   citeBtn: $("#citeBtn"),
   focusBtn: $("#focusBtn"),
   focusExit: $("#focusExit"),
@@ -879,6 +880,148 @@ function renderPage() {
 
   // ไฮไลต์คำค้นเฉพาะหน้าที่กระโดดมาจากผลค้นหา — เปลี่ยนหน้าแล้วล้างทิ้ง
   state.highlightQuery = "";
+
+  // หยุดอ่านออกเสียงเมื่อเปลี่ยนหน้า (กันเสียงค้างจากหน้าก่อน)
+  ttsStop();
+}
+
+/* ───────────────────── อ่านออกเสียง (Text-to-Speech) ─────────────────────
+   ใช้ Web Speech API ในเบราว์เซอร์ — ฟรี ไม่มี backend ไม่ส่งข้อมูลออกนอกเครื่อง
+   ไฮไลต์ประโยคที่กำลังอ่านด้วย CSS Custom Highlight API เพื่อคงสี annotation เดิมไว้ */
+const tts = {
+  supported: typeof window !== "undefined" && "speechSynthesis" in window,
+  voice: null,
+  lines: [],      // [{ text, start, end }]
+  idx: 0,
+  playing: false,
+};
+
+function ttsPickThaiVoice() {
+  const voices = speechSynthesis.getVoices();
+  // เลือกเสียงไทยตัวแรกที่เจอ (lang ขึ้นต้น th)
+  return voices.find((v) => (v.lang || "").toLowerCase().startsWith("th")) || null;
+}
+
+// แปลงช่วงตัวอักษร (offset ใน textContent) → DOM Range เพื่อไฮไลต์โดยไม่แก้ DOM
+function ttsRangeForSpan(root, start, end) {
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+  let pos = 0;
+  let startNode = null;
+  let startOff = 0;
+  let endNode = null;
+  let endOff = 0;
+  let node;
+  while ((node = walker.nextNode())) {
+    const len = node.nodeValue.length;
+    if (startNode === null && pos + len > start) {
+      startNode = node;
+      startOff = start - pos;
+    }
+    if (pos + len >= end) {
+      endNode = node;
+      endOff = end - pos;
+      break;
+    }
+    pos += len;
+  }
+  if (!startNode || !endNode) return null;
+  const range = document.createRange();
+  range.setStart(startNode, startOff);
+  range.setEnd(endNode, endOff);
+  return range;
+}
+
+function ttsHighlightLine(line) {
+  if (!line || !window.CSS || !CSS.highlights || typeof Highlight === "undefined") return;
+  const range = ttsRangeForSpan(els.pageText, line.start, line.end);
+  CSS.highlights.delete("tts-line");
+  if (!range) return;
+  CSS.highlights.set("tts-line", new Highlight(range));
+  // เลื่อนประโยคที่กำลังอ่านให้อยู่กลางจอ
+  const rect = range.getBoundingClientRect();
+  if (rect.top < 90 || rect.bottom > window.innerHeight - 80) {
+    const y = window.scrollY + rect.top - window.innerHeight / 2;
+    window.scrollTo({ top: Math.max(0, y), behavior: "smooth" });
+  }
+}
+
+function ttsBuildLines() {
+  const text = els.pageText.textContent || "";
+  const lines = [];
+  let offset = 0;
+  for (const raw of text.split("\n")) {
+    const len = raw.length;
+    if (raw.trim().length > 0) lines.push({ text: raw, start: offset, end: offset + len });
+    offset += len + 1; // +1 = อักขระ \n
+  }
+  return lines;
+}
+
+function ttsSpeakNext() {
+  if (!tts.playing || tts.idx >= tts.lines.length) return ttsStop();
+  const line = tts.lines[tts.idx];
+  ttsHighlightLine(line);
+  const utter = new SpeechSynthesisUtterance(line.text);
+  if (tts.voice) utter.voice = tts.voice;
+  utter.lang = tts.voice ? tts.voice.lang : "th-TH";
+  utter.rate = 0.95;
+  utter.onend = () => {
+    if (!tts.playing) return;
+    tts.idx += 1;
+    ttsSpeakNext();
+  };
+  utter.onerror = () => { if (tts.playing) { tts.idx += 1; ttsSpeakNext(); } };
+  speechSynthesis.speak(utter);
+}
+
+function ttsSetButton(on) {
+  if (!els.listenBtn) return;
+  els.listenBtn.classList.toggle("on", on);
+  els.listenBtn.title = on ? "หยุดอ่าน" : "ฟังหน้านี้";
+  const play = els.listenBtn.querySelector(".ic-play");
+  const stop = els.listenBtn.querySelector(".ic-stop");
+  if (play) play.hidden = on;
+  if (stop) stop.hidden = !on;
+}
+
+function ttsStart() {
+  if (!tts.supported) {
+    toast("เบราว์เซอร์นี้ไม่รองรับการอ่านออกเสียง");
+    return;
+  }
+  speechSynthesis.cancel();
+  tts.voice = ttsPickThaiVoice();
+  if (!tts.voice) {
+    toast("ไม่พบเสียงภาษาไทยในเครื่องนี้ — ลองติดตั้งแพ็กเสียงไทยของระบบ", "เริ่มอ่านด้วยเสียงเริ่มต้น");
+  }
+  tts.lines = ttsBuildLines();
+  if (!tts.lines.length) {
+    toast("หน้านี้ไม่มีข้อความให้อ่าน");
+    return;
+  }
+  tts.idx = 0;
+  tts.playing = true;
+  ttsSetButton(true);
+  ttsSpeakNext();
+}
+
+function ttsStop() {
+  if (!tts.supported) return;
+  tts.playing = false;
+  speechSynthesis.cancel();
+  if (window.CSS && CSS.highlights) CSS.highlights.delete("tts-line");
+  ttsSetButton(false);
+}
+
+function ttsToggle() {
+  if (tts.playing) ttsStop();
+  else ttsStart();
+}
+
+// เสียงในบางเบราว์เซอร์โหลดแบบ async — เตรียมรายการเสียงไว้ล่วงหน้า
+if (tts.supported) {
+  speechSynthesis.getVoices();
+  speechSynthesis.onvoiceschanged = () => { tts.voice = ttsPickThaiVoice(); };
 }
 
 /* สีที่ปลอดภัยสำหรับ inline style — กัน injection ใน style attribute */
@@ -2250,8 +2393,11 @@ els.bookmarkBtn.addEventListener("click", () => {
 });
 
 els.notesBtn.addEventListener("click", () => {
+  ttsStop();
   location.hash = "#/notes";
 });
+
+els.listenBtn.addEventListener("click", ttsToggle);
 
 els.citeBtn.addEventListener("click", () => {
   if (state.book) copyText(pageCitation(state.book, state.page), "คัดลอกการอ้างอิงแล้ว");
