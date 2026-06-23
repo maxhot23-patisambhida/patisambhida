@@ -2855,9 +2855,28 @@ els.mapBody.addEventListener("keydown", (event) => {
 });
 
 // โหมดกลางคืน
+/* วนธีม: สว่าง → กระดาษอุ่น (sepia) → มืด → สว่าง ... */
+const THEME_CYCLE = ["light", "sepia", "dark"];
+const THEME_LABEL = { light: "โหมดสว่าง", sepia: "โหมดกระดาษอุ่น", dark: "โหมดมืด" };
+
+function currentTheme() {
+  const root = document.documentElement;
+  if (root.classList.contains("dark")) return "dark";
+  if (root.classList.contains("sepia")) return "sepia";
+  return "light";
+}
+
+function applyTheme(theme) {
+  const root = document.documentElement;
+  root.classList.toggle("sepia", theme === "sepia");
+  root.classList.toggle("dark", theme === "dark");
+  localStorage.setItem(LS.theme, theme);
+  els.themeToggle.setAttribute("aria-label", `ธีม: ${THEME_LABEL[theme]} (แตะเพื่อสลับ)`);
+}
+
 els.themeToggle.addEventListener("click", () => {
-  const dark = document.documentElement.classList.toggle("dark");
-  localStorage.setItem(LS.theme, dark ? "dark" : "light");
+  const next = THEME_CYCLE[(THEME_CYCLE.indexOf(currentTheme()) + 1) % THEME_CYCLE.length];
+  applyTheme(next);
 });
 
 // command palette
@@ -2994,7 +3013,9 @@ document.querySelectorAll("[data-scroll-to='about-project']").forEach((link) => 
 (function applySavedTheme() {
   const saved = localStorage.getItem(LS.theme) || localStorage.getItem("theme");
   const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-  if (saved === "dark" || (!saved && prefersDark)) {
+  if (saved === "sepia") {
+    document.documentElement.classList.add("sepia");
+  } else if (saved === "dark" || (!saved && prefersDark)) {
     document.documentElement.classList.add("dark");
   }
 })();

@@ -56,6 +56,33 @@
   --shadow-deep: 0 24px 70px -18px rgba(0, 0, 0, 0.7);
 }
 
+/* ธีมกระดาษอุ่น (sepia) — โทนกระดาษเก่า ตัวอักษรน้ำตาลเข้ม สบายตาสำหรับอ่านกลางคืน
+   ยังเป็นโทนสว่าง (color-scheme: light) แต่ลดความจ้าของพื้นขาวลง */
+:root.sepia {
+  color-scheme: light;
+
+  --bg: #ece0c8;
+  --bg-deep: #e5d6ba;
+  --paper: #f4ead3;
+  --paper-edge: #ebdfc4;
+  --ink: #3a2f1d;
+  --ink-soft: #5c4f38;
+  --muted: #8a7a5c;
+  --line: #d8c8a6;
+  --line-strong: #c4b189;
+
+  --accent: #1e6f5c;
+  --accent-strong: #155742;
+  --accent-soft: rgba(30, 111, 92, 0.12);
+  --accent-line: rgba(30, 111, 92, 0.3);
+
+  --mark: rgba(214, 160, 60, 0.45);
+  --danger: #a4452f;
+
+  --shadow-soft: 0 1px 2px rgba(80, 60, 28, 0.06), 0 10px 30px -12px rgba(80, 60, 28, 0.18);
+  --shadow-deep: 0 24px 70px -18px rgba(70, 52, 24, 0.34);
+}
+
 /* ───────────────────────── base ───────────────────────── */
 * { box-sizing: border-box; }
 
@@ -250,7 +277,9 @@ kbd {
 .tt { font: 600 15px/1 var(--serif); display: inline-flex; align-items: baseline; }
 .tt small { font-size: 11px; margin-left: 1px; }
 
-.ic-moon { display: none; }
+.ic-moon, .ic-sepia { display: none; }
+:root.sepia .ic-sun { display: none; }
+:root.sepia .ic-sepia { display: block; }
 :root.dark .ic-sun { display: none; }
 :root.dark .ic-moon { display: block; }
 
