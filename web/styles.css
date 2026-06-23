@@ -1147,8 +1147,9 @@ body.focus-mode .pager:focus-within { opacity: 1; }
 }
 
 .ed-italic {
-  /* อักษรไทยไม่มีหน้าตัวเอียง — บังคับเอียงสังเคราะห์ด้วยมุม oblique (Chromium รองรับ) */
-  font-style: oblique 12deg;
+  /* อักษรไทยไม่มีหน้าตัวเอียง — ใช้ font-style: italic เพื่อให้เบราว์เซอร์สังเคราะห์ตัวเอียง
+     (oblique <angle> เล็ก ๆ เช่น 12deg ถูก Chromium ปัดเป็น normal จึงไม่เอียง) */
+  font-style: italic;
 }
 
 .ed-color { /* สีกำหนดด้วย inline style */ }
