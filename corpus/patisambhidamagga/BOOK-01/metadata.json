@@ -1,0 +1,16 @@
+{
+  "bookId": "PKA-B01",
+  "bookNumber": 1,
+  "corpusId": "patisambhidamagga",
+  "language": {
+    "primary": "th",
+    "representations": [
+      "th",
+      "pi"
+    ]
+  },
+  "slug": "book-01",
+  "sourceFile": "ปฏิสัมภิทามรรค ๑ ญาณุทเทส มาติกา ๗๓.pdf",
+  "sourceSha256": "958ed307426ef28532e2523fde23a47705cd9efb1de089f37ea8c416961789bd",
+  "title": "ปฏิสัมภิทามรรค ๑ ญาณุทเทส มาติกา ๗๓"
+}

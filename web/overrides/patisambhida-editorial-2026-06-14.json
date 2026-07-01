@@ -1,0 +1,453 @@
+{
+  "book-01": {
+    "entries": [
+      {
+        "id": "ed-mqd8c7tc-qd6w9",
+        "type": "heading-sm",
+        "page": 1,
+        "start": 2,
+        "end": 24
+      },
+      {
+        "id": "ed-mqd8cx8w-pop2e",
+        "type": "align-center",
+        "page": 1,
+        "start": 2,
+        "end": 24
+      },
+      {
+        "id": "ed-mqd8d16o-s7gld",
+        "type": "color",
+        "page": 1,
+        "start": 2,
+        "end": 24,
+        "color": "#0d6efd"
+      },
+      {
+        "id": "ed-mqd8du9j-4bs1e",
+        "type": "heading-lg",
+        "page": 1,
+        "start": 2,
+        "end": 24
+      },
+      {
+        "id": "ed-mqd8cqn4-v2hbx",
+        "type": "bold",
+        "page": 1,
+        "start": 25,
+        "end": 39
+      },
+      {
+        "id": "ed-mqd8e3nc-mrgqv",
+        "type": "color",
+        "page": 1,
+        "start": 25,
+        "end": 39,
+        "color": "#1e8449"
+      },
+      {
+        "id": "ed-mqd8e7pj-v97i7",
+        "type": "color",
+        "page": 1,
+        "start": 25,
+        "end": 39,
+        "color": "#0d6efd"
+      },
+      {
+        "id": "ed-mqcezsqu-nxuxm",
+        "type": "bold",
+        "page": 1,
+        "start": 40,
+        "end": 435
+      },
+      {
+        "id": "ed-mqcf0uy6-mkae7",
+        "type": "bold",
+        "page": 2,
+        "start": 2,
+        "end": 23
+      },
+      {
+        "id": "ed-mqcf0y86-unfbh",
+        "type": "color",
+        "page": 2,
+        "start": 2,
+        "end": 23,
+        "color": "#0d6efd"
+      },
+      {
+        "id": "ed-mqd8xyd3-f5hhh",
+        "type": "align-center",
+        "page": 2,
+        "start": 2,
+        "end": 23
+      },
+      {
+        "id": "ed-mqd8yain-zkp23",
+        "type": "spacing-top",
+        "page": 2,
+        "start": 2,
+        "end": 23
+      },
+      {
+        "id": "ed-mqd8ydig-ephy7",
+        "type": "spacing-top",
+        "page": 2,
+        "start": 2,
+        "end": 23
+      },
+      {
+        "id": "ed-mqddnc0u-x25x3",
+        "type": "bold",
+        "page": 2,
+        "start": 24,
+        "end": 127
+      },
+      {
+        "id": "ed-mqcfa9h2-mux29",
+        "type": "bold",
+        "page": 2,
+        "start": 128,
+        "end": 147
+      },
+      {
+        "id": "ed-mqcfabwe-5c9yy",
+        "type": "color",
+        "page": 2,
+        "start": 128,
+        "end": 147,
+        "color": "#0d6efd"
+      },
+      {
+        "id": "ed-mqd8zfs7-cosop",
+        "type": "align-center",
+        "page": 2,
+        "start": 128,
+        "end": 147
+      },
+      {
+        "id": "ed-mqddnf2m-dzo17",
+        "type": "bold",
+        "page": 2,
+        "start": 148,
+        "end": 260
+      },
+      {
+        "id": "ed-mqcfaftp-fxihq",
+        "type": "bold",
+        "page": 2,
+        "start": 261,
+        "end": 283
+      },
+      {
+        "id": "ed-mqcfaj9i-r14yz",
+        "type": "color",
+        "page": 2,
+        "start": 261,
+        "end": 283,
+        "color": "#0d6efd"
+      },
+      {
+        "id": "ed-mqd8zm67-ns4bu",
+        "type": "align-center",
+        "page": 2,
+        "start": 261,
+        "end": 283
+      },
+      {
+        "id": "ed-mqddnjby-0upwl",
+        "type": "bold",
+        "page": 2,
+        "start": 284,
+        "end": 583
+      },
+      {
+        "id": "ed-mqcf1ety-7obhw",
+        "type": "bold",
+        "page": 3,
+        "start": 46,
+        "end": 64
+      },
+      {
+        "id": "ed-mqcf1i0e-vsjqw",
+        "type": "color",
+        "page": 3,
+        "start": 46,
+        "end": 64,
+        "color": "#0d6efd"
+      },
+      {
+        "id": "ed-mqd9008o-kmb63",
+        "type": "align-center",
+        "page": 3,
+        "start": 46,
+        "end": 64
+      },
+      {
+        "id": "ed-mqcf1mzq-xf4iw",
+        "type": "bold",
+        "page": 3,
+        "start": 205,
+        "end": 213
+      },
+      {
+        "id": "ed-mqcf1ph2-l5kqx",
+        "type": "color",
+        "page": 3,
+        "start": 205,
+        "end": 213,
+        "color": "#0d6efd"
+      },
+      {
+        "id": "ed-mqd903v3-1na8d",
+        "type": "align-center",
+        "page": 3,
+        "start": 205,
+        "end": 213
+      },
+      {
+        "id": "ed-mqd91eh4-iaxmu",
+        "type": "color",
+        "page": 3,
+        "start": 355,
+        "end": 417,
+        "color": "#0d6efd"
+      },
+      {
+        "id": "ed-mqd91iq7-2o5le",
+        "type": "bold",
+        "page": 3,
+        "start": 355,
+        "end": 417
+      },
+      {
+        "id": "ed-mqd91rzj-wwd7a",
+        "type": "indent",
+        "page": 3,
+        "start": 355,
+        "end": 417
+      },
+      {
+        "id": "ed-mqd924bb-65wig",
+        "type": "indent",
+        "page": 3,
+        "start": 355,
+        "end": 417
+      },
+      {
+        "id": "ed-mqd92gun-34ta7",
+        "type": "align-center",
+        "page": 3,
+        "start": 355,
+        "end": 417
+      },
+      {
+        "id": "ed-mqd8k8cn-61967",
+        "type": "bold",
+        "page": 4,
+        "start": 2,
+        "end": 20
+      },
+      {
+        "id": "ed-mqd8kai7-lfma1",
+        "type": "color",
+        "page": 4,
+        "start": 2,
+        "end": 20,
+        "color": "#0d6efd"
+      },
+      {
+        "id": "ed-mqd93blz-ztpdw",
+        "type": "align-center",
+        "page": 4,
+        "start": 2,
+        "end": 20
+      },
+      {
+        "id": "ed-mqd8kdt3-9rgf5",
+        "type": "color",
+        "page": 4,
+        "start": 116,
+        "end": 131,
+        "color": "#0d6efd"
+      },
+      {
+        "id": "ed-mqd8kh9k-nv1wm",
+        "type": "bold",
+        "page": 4,
+        "start": 116,
+        "end": 131
+      },
+      {
+        "id": "ed-mqd93fgg-sy8gj",
+        "type": "align-center",
+        "page": 4,
+        "start": 116,
+        "end": 131
+      },
+      {
+        "id": "ed-mqd8kmyn-t055c",
+        "type": "color",
+        "page": 4,
+        "start": 245,
+        "end": 294,
+        "color": "#1e8449"
+      },
+      {
+        "id": "ed-mqd8kr2f-rdz3p",
+        "type": "color",
+        "page": 4,
+        "start": 295,
+        "end": 321,
+        "color": "#0d6efd"
+      },
+      {
+        "id": "ed-mqd8kuon-pgk8i",
+        "type": "bold",
+        "page": 4,
+        "start": 295,
+        "end": 321
+      },
+      {
+        "id": "ed-mqd93ihr-bpw1s",
+        "type": "align-center",
+        "page": 4,
+        "start": 295,
+        "end": 321
+      },
+      {
+        "id": "ed-mqcff9d9-ncgyv",
+        "type": "italic",
+        "page": 4,
+        "start": 413,
+        "end": 425
+      },
+      {
+        "id": "ed-mqd8ljbc-0akfc",
+        "type": "color",
+        "page": 4,
+        "start": 469,
+        "end": 528,
+        "color": "#1e8449"
+      },
+      {
+        "id": "ed-mqd8lw0n-35g76",
+        "type": "align-center",
+        "page": 5,
+        "start": 2,
+        "end": 16
+      },
+      {
+        "id": "ed-mqd8m3k0-u3bqa",
+        "type": "heading-lg",
+        "page": 5,
+        "start": 2,
+        "end": 16
+      },
+      {
+        "id": "ed-mqd9888v-deylq",
+        "type": "align-center",
+        "page": 5,
+        "start": 17,
+        "end": 41
+      },
+      {
+        "id": "ed-mqd98chr-pu634",
+        "type": "bold",
+        "page": 5,
+        "start": 17,
+        "end": 41
+      },
+      {
+        "id": "ed-mqd98fyv-tsbkk",
+        "type": "heading-md",
+        "page": 5,
+        "start": 17,
+        "end": 41
+      },
+      {
+        "id": "ed-mqd98ifk-2btuc",
+        "type": "color",
+        "page": 5,
+        "start": 17,
+        "end": 41,
+        "color": "#0d6efd"
+      },
+      {
+        "id": "ed-mqd98osn-nm2wo",
+        "type": "bold",
+        "page": 5,
+        "start": 42,
+        "end": 73
+      },
+      {
+        "id": "ed-mqd99amn-of2a0",
+        "type": "color",
+        "page": 5,
+        "start": 42,
+        "end": 73,
+        "color": "#8e44ad"
+      },
+      {
+        "id": "ed-mqd98y4v-zty3z",
+        "type": "bold",
+        "page": 5,
+        "start": 200,
+        "end": 235
+      },
+      {
+        "id": "ed-mqd99e6n-euzbo",
+        "type": "color",
+        "page": 5,
+        "start": 200,
+        "end": 235,
+        "color": "#8e44ad"
+      },
+      {
+        "id": "ed-mqd993pj-zlwvh",
+        "type": "bold",
+        "page": 5,
+        "start": 340,
+        "end": 386
+      },
+      {
+        "id": "ed-mqd99qyf-q6xqi",
+        "type": "color",
+        "page": 5,
+        "start": 340,
+        "end": 386,
+        "color": "#8e44ad"
+      },
+      {
+        "id": "ed-mqd99wo0-iq2fu",
+        "type": "color",
+        "page": 5,
+        "start": 581,
+        "end": 621,
+        "color": "#8e44ad"
+      },
+      {
+        "id": "ed-mqd9a33j-0j656",
+        "type": "bold",
+        "page": 5,
+        "start": 581,
+        "end": 621
+      },
+      {
+        "id": "ed-mqd9a9wv-yja0u",
+        "type": "color",
+        "page": 5,
+        "start": 718,
+        "end": 792,
+        "color": "#8e44ad"
+      },
+      {
+        "id": "ed-mqd9afmf-94khx",
+        "type": "bold",
+        "page": 5,
+        "start": 718,
+        "end": 792
+      }
+    ]
+  }
+}

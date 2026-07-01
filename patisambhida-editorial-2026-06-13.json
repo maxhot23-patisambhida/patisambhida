@@ -1,0 +1,60 @@
+{
+  "book-01": {
+    "entries": [
+      {
+        "id": "e1",
+        "type": "bold",
+        "page": 8,
+        "start": 5,
+        "end": 15
+      },
+      {
+        "id": "e2",
+        "type": "italic",
+        "page": 8,
+        "start": 20,
+        "end": 30
+      },
+      {
+        "id": "e3",
+        "type": "color",
+        "page": 8,
+        "start": 35,
+        "end": 45,
+        "color": "#0d6efd"
+      },
+      {
+        "id": "e4",
+        "type": "color",
+        "page": 8,
+        "start": 50,
+        "end": 60,
+        "color": "#8e44ad"
+      },
+      {
+        "id": "e5",
+        "type": "color",
+        "page": 8,
+        "start": 65,
+        "end": 75,
+        "color": "#1e8449"
+      },
+      {
+        "id": "e6",
+        "type": "color",
+        "page": 8,
+        "start": 80,
+        "end": 90,
+        "color": "#c0392b"
+      },
+      {
+        "id": "e7",
+        "type": "replace",
+        "page": 8,
+        "start": 95,
+        "end": 105,
+        "replacement": "แก้"
+      }
+    ]
+  }
+}

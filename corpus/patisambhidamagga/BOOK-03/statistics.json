@@ -1,0 +1,20 @@
+{
+  "books": 1,
+  "chapters": 53,
+  "characters": 173047,
+  "citations": 1032,
+  "compilationDurationSeconds": 6.111432,
+  "compileTimestamp": "2026-06-29T11:17:07Z",
+  "compilerVersion": "kos-compiler/1",
+  "coverage": {
+    "citation": 1.0,
+    "headingKnowledge": 0.811047
+  },
+  "knowledgeObjects": 837,
+  "normalizationVersion": "kos-normalizer/1",
+  "outputSizeBytes": 4157948,
+  "pages": 170,
+  "paragraphs": 1032,
+  "relationships": 0,
+  "sections": 863
+}

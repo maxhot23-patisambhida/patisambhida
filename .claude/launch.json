@@ -1,0 +1,19 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "web",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "4173", "--bind", "127.0.0.1", "--directory", "web"],
+      "port": 4173,
+      "autoPort": false
+    },
+    {
+      "name": "platform",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["--prefix", "./apps/platform", "run", "dev", "--", "--host", "127.0.0.1", "--port", "5174", "--strictPort"],
+      "port": 5174,
+      "autoPort": false
+    }
+  ]
+}

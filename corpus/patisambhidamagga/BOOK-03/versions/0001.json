@@ -1,0 +1,18 @@
+{
+  "compileTimestamp": "2026-06-29T11:17:07Z",
+  "compilerVersion": "kos-compiler/1",
+  "counts": {
+    "chapters": 53,
+    "citations": 1032,
+    "evidence": 837,
+    "knowledge": 837,
+    "paragraphs": 1032,
+    "relationships": 0,
+    "sections": 863
+  },
+  "normalizationVersion": "kos-normalizer/1",
+  "outputHash": "e0d115502361274e739d35736a2faf240b99f0ff5441efda8503ed5a66293b4a",
+  "repositoryVersion": "kos-repository/1",
+  "sourceSha256": "581ff6a05b947b71b4e84214cf78565208330cdfe1ee8dcbb9ccd035e2dfc43e",
+  "version": 1
+}

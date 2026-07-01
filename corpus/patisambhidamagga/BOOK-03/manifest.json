@@ -1,0 +1,46 @@
+{
+  "bookId": "PKA-B03",
+  "bookNumber": 3,
+  "citationCount": 1032,
+  "compileTimestamp": "2026-06-29T11:17:07Z",
+  "compilerVersion": "kos-compiler/1",
+  "corpusId": "patisambhidamagga",
+  "counts": {
+    "chapters": 53,
+    "citations": 1032,
+    "evidence": 837,
+    "knowledge": 837,
+    "paragraphs": 1032,
+    "relationships": 0,
+    "sections": 863
+  },
+  "knowledgeCount": 837,
+  "normalizationVersion": "kos-normalizer/1",
+  "outputHash": "e0d115502361274e739d35736a2faf240b99f0ff5441efda8503ed5a66293b4a",
+  "paragraphCount": 1032,
+  "relationshipCount": 0,
+  "repositoryVersion": "kos-repository/1",
+  "sourceFile": "ปฏิสัมภิทามรรค ๓ สุตมยญาณ อภิญเญยยนิทเทส ทุตยภาณวาระ บาลี ธรรม ๓๑ ในขณะแห่งอริยมรรค.pdf",
+  "sourceSha256": "581ff6a05b947b71b4e84214cf78565208330cdfe1ee8dcbb9ccd035e2dfc43e",
+  "statistics": {
+    "books": 1,
+    "chapters": 53,
+    "characters": 173047,
+    "citations": 1032,
+    "compilationDurationSeconds": 6.111432,
+    "compileTimestamp": "2026-06-29T11:17:07Z",
+    "compilerVersion": "kos-compiler/1",
+    "coverage": {
+      "citation": 1.0,
+      "headingKnowledge": 0.811047
+    },
+    "knowledgeObjects": 837,
+    "normalizationVersion": "kos-normalizer/1",
+    "outputSizeBytes": 4157948,
+    "pages": 170,
+    "paragraphs": 1032,
+    "relationships": 0,
+    "sections": 863
+  },
+  "title": "ปฏิสัมภิทามรรค ๓ สุตมยญาณ อภิญเญยยนิทเทส ทุตยภาณวาระ บาลี ธรรม ๓๑ ในขณะแห่งอริยมรรค"
+}

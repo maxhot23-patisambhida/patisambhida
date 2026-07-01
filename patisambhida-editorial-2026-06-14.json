@@ -1,0 +1,20 @@
+{
+  "book-01": {
+    "entries": [
+      {
+        "id": "a1",
+        "type": "bold",
+        "page": 8,
+        "start": 0,
+        "end": 10
+      },
+      {
+        "id": "a2",
+        "type": "align-center",
+        "page": 8,
+        "start": 20,
+        "end": 40
+      }
+    ]
+  }
+}

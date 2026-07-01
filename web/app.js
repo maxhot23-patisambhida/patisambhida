@@ -2879,6 +2879,25 @@ els.themeToggle.addEventListener("click", () => {
   applyTheme(next);
 });
 
+// คัดลอก Line ID จาก footer
+const footerLineBtn = document.getElementById("footerLineBtn");
+if (footerLineBtn) {
+  footerLineBtn.addEventListener("click", async () => {
+    const lbl = document.getElementById("footerLineLbl");
+    try {
+      await navigator.clipboard.writeText("dt17016");
+      if (lbl) {
+        const prev = lbl.textContent;
+        lbl.textContent = "คัดลอกแล้ว ✓";
+        setTimeout(() => { lbl.textContent = prev; }, 2000);
+      }
+      toast("คัดลอก Line ID แล้ว: dt17016");
+    } catch {
+      toast("Line ID: dt17016");
+    }
+  });
+}
+
 // command palette
 els.searchTrigger.addEventListener("click", () => openPalette());
 els.paletteClose.addEventListener("click", closePalette);

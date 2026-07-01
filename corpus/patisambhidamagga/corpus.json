@@ -1,0 +1,37 @@
+{
+  "books": [
+    {
+      "bookId": "PKA-B01",
+      "bookNumber": 1,
+      "folder": "BOOK-01",
+      "knowledgeCount": 1490,
+      "outputHash": "7df7d34311e64e382f3f4f36e811b5c6a0e4866d5bb91582729b1aaf41eec29b",
+      "paragraphCount": 1875,
+      "title": "ปฏิสัมภิทามรรค ๑ ญาณุทเทส มาติกา ๗๓"
+    },
+    {
+      "bookId": "PKA-B03",
+      "bookNumber": 3,
+      "folder": "BOOK-03",
+      "knowledgeCount": 837,
+      "outputHash": "e0d115502361274e739d35736a2faf240b99f0ff5441efda8503ed5a66293b4a",
+      "paragraphCount": 1032,
+      "title": "ปฏิสัมภิทามรรค ๓ สุตมยญาณ อภิญเญยยนิทเทส ทุตยภาณวาระ บาลี ธรรม ๓๑ ในขณะแห่งอริยมรรค"
+    }
+  ],
+  "corpusId": "patisambhidamagga",
+  "repositoryVersion": "kos-repository/1",
+  "sources": [
+    {
+      "bookNumber": 1,
+      "file": "ปฏิสัมภิทามรรค ๑ ญาณุทเทส มาติกา ๗๓.pdf",
+      "sha256": "958ed307426ef28532e2523fde23a47705cd9efb1de089f37ea8c416961789bd"
+    },
+    {
+      "bookNumber": 3,
+      "file": "ปฏิสัมภิทามรรค ๓ สุตมยญาณ อภิญเญยยนิทเทส ทุตยภาณวาระ บาลี ธรรม ๓๑ ในขณะแห่งอริยมรรค.pdf",
+      "sha256": "581ff6a05b947b71b4e84214cf78565208330cdfe1ee8dcbb9ccd035e2dfc43e"
+    }
+  ],
+  "title": "ปฏิสัมภิทามรรค"
+}

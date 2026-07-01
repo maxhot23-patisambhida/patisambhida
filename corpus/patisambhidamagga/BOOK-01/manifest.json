@@ -1,0 +1,46 @@
+{
+  "bookId": "PKA-B01",
+  "bookNumber": 1,
+  "citationCount": 1875,
+  "compileTimestamp": "2026-06-29T11:17:39Z",
+  "compilerVersion": "kos-compiler/1",
+  "corpusId": "patisambhidamagga",
+  "counts": {
+    "chapters": 65,
+    "citations": 1875,
+    "evidence": 1490,
+    "knowledge": 1490,
+    "paragraphs": 1875,
+    "relationships": 0,
+    "sections": 1491
+  },
+  "knowledgeCount": 1490,
+  "normalizationVersion": "kos-normalizer/1",
+  "outputHash": "7df7d34311e64e382f3f4f36e811b5c6a0e4866d5bb91582729b1aaf41eec29b",
+  "paragraphCount": 1875,
+  "relationshipCount": 0,
+  "repositoryVersion": "kos-repository/1",
+  "sourceFile": "ปฏิสัมภิทามรรค ๑ ญาณุทเทส มาติกา ๗๓.pdf",
+  "sourceSha256": "958ed307426ef28532e2523fde23a47705cd9efb1de089f37ea8c416961789bd",
+  "statistics": {
+    "books": 1,
+    "chapters": 65,
+    "characters": 238295,
+    "citations": 1875,
+    "compilationDurationSeconds": 7.133342,
+    "compileTimestamp": "2026-06-29T11:17:39Z",
+    "compilerVersion": "kos-compiler/1",
+    "coverage": {
+      "citation": 1.0,
+      "headingKnowledge": 0.794667
+    },
+    "knowledgeObjects": 1490,
+    "normalizationVersion": "kos-normalizer/1",
+    "outputSizeBytes": 6381549,
+    "pages": 212,
+    "paragraphs": 1875,
+    "relationships": 0,
+    "sections": 1491
+  },
+  "title": "ปฏิสัมภิทามรรค ๑ ญาณุทเทส มาติกา ๗๓"
+}
